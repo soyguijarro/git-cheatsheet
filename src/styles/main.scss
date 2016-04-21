@@ -1,0 +1,178 @@
+@import '~normalize.css/normalize.css';
+@import 'variables';
+@import 'fonts';
+
+::selection {
+  background-color: lighten($accent-color, 30%);
+}
+
+:active {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus,
+::-moz-focus-inner,
+input:-moz-focusring {
+  border: none;
+  outline: none;
+}
+
+body {
+  font-family: $body-font;
+  color: $body-color;
+  background: {
+    color: $background-color;
+    image: url($background-image);
+  }
+
+  margin: 1em;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 45em;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (min-width: $small-bp) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &-logo {
+    margin-bottom: 0.5em;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    @media screen and (min-width: $small-bp) {
+      margin-bottom: 0;
+    }
+
+    &-image {
+      width: 6.875em;
+      margin-right: 0.5em;
+    }
+
+    &-text {
+      font: {
+        family: $heading-font;
+        size: 1.5em;
+        weight: 400;
+      }
+      color: $secondary-color;
+    }
+  }
+
+  &-search {
+    font: {
+      family: $heading-font;
+      size: 0.9em;
+    }
+    color: $body-color;
+    background: {
+      color: $box-background-color;
+      image: url($search-icon-image);
+      repeat: no-repeat;
+      position: 0.625em 50%;
+    }
+    border: 1px solid darken($box-border-color, 10%);
+    border-radius: 1.25em;
+    box-shadow: 0 1px 4px #ddd inset;
+
+    margin-left: 1em;
+    padding: 0.35em 1em 0.45em 2.2em;
+
+    transition: border 0.2s ease-out;
+
+    &:focus {
+      border: 1px solid darken($link-color, 10%);
+    }
+  }
+}
+
+.main {
+  background-color: $box-background-color;
+  border: 1px solid $box-border-color;
+  border-radius: 0.3em;
+
+  min-height: calc(100vh - 13.2em);
+  padding: 0 2em;
+  margin: 1em 0;
+
+  @media screen and (min-width: $small-bp) {
+    min-height: calc(100vh - 9.5em);
+  }
+
+  &-section {
+    margin: 2em 0;
+
+    &-title {
+      font: {
+        family: $heading-font;
+        size: 1.2em;
+      }
+      line-height: 2em;
+
+      margin: 0 0 0.5em 0;
+    }
+
+    &-item {
+      &-title {
+        color: $secondary-color;
+        font: {
+          size: 0.8em;
+          weight: 400;
+        }
+        text-transform: uppercase;
+      }
+
+      &-content {
+        font-family: $monospaced-font;
+        white-space: normal;
+
+        margin: 0 0 1em 0;
+      }
+    }
+
+    &-no-results {
+      text-align: center;
+
+      margin-top: 2.5em;
+    }
+
+    &-extra-space {
+      margin-bottom: 2em;
+    }
+
+    &-highlight {
+      background-color: $highlight-color;
+    }
+  }
+}
+
+.footer {
+  font: {
+    family: $heading-font;
+    size: 0.9em;
+  }
+
+  margin: 0 0.2em;
+
+  @media screen and (min-width: $small-bp) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

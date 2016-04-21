@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'Roboto Slab';
+  src: url('../fonts/robotoslab-bold.eot');
+  src:
+    url('../fonts/robotoslab-bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/robotoslab-bold.woff2') format('woff2'),
+    url('../fonts/robotoslab-bold.woff') format('woff'),
+    url('../fonts/robotoslab-bold.ttf') format('truetype'),
+    url('../fonts/robotoslab-bold.svg#RobotoSlab') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Slab';
+  src: url('../fonts/robotoslab-regular.eot');
+  src:
+    url('../fonts/robotoslab-regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/robotoslab-regular.woff2') format('woff2'),
+    url('../fonts/robotoslab-regular.woff') format('woff'),
+    url('../fonts/robotoslab-regular.ttf') format('truetype'),
+    url('../fonts/robotoslab-regular.svg#RobotoSlab') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Medium';
+  src: url('../fonts/roboto-medium.eot');
+  src:
+    url('../fonts/roboto-medium.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/roboto-medium.woff2') format('woff2'),
+    url('../fonts/roboto-medium.woff') format('woff'),
+    url('../fonts/roboto-medium.ttf') format('truetype'),
+    url('../fonts/roboto-medium.svg#RobotoMedium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Droid Sans Mono';
+  src: url('../fonts/droidsansmono.eot');
+  src:
+    url('../fonts/droidsansmono.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/droidsansmono.woff2') format('woff2'),
+    url('../fonts/droidsansmono.woff') format('woff'),
+    url('../fonts/droidsansmono.ttf') format('truetype'),
+    url('../fonts/droidsansmono.svg#DroidSansMono') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
