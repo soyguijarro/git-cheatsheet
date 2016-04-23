@@ -1,5 +1,6 @@
-import '../styles/main.scss';
+import escapeStringRegexp from 'escape-string-regexp';
 import data from '../data.json';
+import '../styles/main.scss';
 
 if (module.hot) module.hot.accept();
 
@@ -15,7 +16,7 @@ const updatePageOnSearch = event => {
     if (!(filteredData && filteredData.length > 0)) {
       const noResultsElt = document.createElement('section');
       noResultsElt.className = 'main-section-no-results';
-      noResultsElt.innerHTML = `There are no matches for <strong>${searchString}</strong>.`;
+      noResultsElt.innerHTML = 'There are no matches.';
       mainElt.appendChild(noResultsElt);
     }
 
@@ -58,7 +59,7 @@ const updatePageOnSearch = event => {
 
   if (!event) return updatePage(data);
 
-  const searchString = event.target.value;
+  const searchString = escapeStringRegexp(event.target.value);
   const searchRegExp = new RegExp(searchString, 'ig');
 
   const filteredData = data.filter(item => (

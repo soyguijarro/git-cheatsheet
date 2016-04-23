@@ -19,6 +19,7 @@
     "browser-sync": "2.11.2",
     "colors": "1.1.2",
     "css-loader": "0.23.1",
+    "escape-string-regexp": "1.0.5",
     "eslint": "2.7.0",
     "eslint-config-airbnb": "6.2.0",
     "eslint-loader": "1.3.0",

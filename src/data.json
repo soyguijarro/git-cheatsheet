@@ -250,6 +250,6 @@
     "name": "Delete branches not in remote",
     "content": "git remote prune &#60;remote&#62;",
     "section": "Branches",
-    "isEndOfSubsection": false
+    "isEndOfSubsection": true
   }
 ]
