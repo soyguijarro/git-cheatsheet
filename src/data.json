@@ -1,19 +1,19 @@
 [
   {
     "name": "Set up credentials [globally]",
-    "content": "git config [--global] user.[name | email] [<name> | <email>]",
+    "content": "git config [--global] user.[name | email] [&#60;name&#62; | &#60;email&#62;]",
     "section": "Set up",
     "isEndOfSubsection": false
   },
   {
     "name": "Create local repo",
-    "content": "git init <name>",
+    "content": "git init &#60;name&#62;",
     "section": "Set up",
     "isEndOfSubsection": false
   },
   {
     "name": "Download online repo",
-    "content": "git clone <url>",
+    "content": "git clone &#60;url&#62;",
     "section": "Set up",
     "isEndOfSubsection": false
   },
@@ -25,13 +25,13 @@
   },
   {
     "name": "Add remote",
-    "content": "git remote add <remote> <url>",
+    "content": "git remote add &#60;remote&#62; &#60;url&#62;",
     "section": "Remotes",
     "isEndOfSubsection": false
   },
   {
     "name": "Delete remote",
-    "content": "git remote remove <remote>",
+    "content": "git remote remove &#60;remote&#62;",
     "section": "Remotes",
     "isEndOfSubsection": false
   },
@@ -43,19 +43,19 @@
   },
   {
     "name": "Pull changes from remote",
-    "content": "git pull <remote> <branch>",
+    "content": "git pull &#60;remote&#62; &#60;branch&#62;",
     "section": "Pull and push",
     "isEndOfSubsection": false
   },
   {
     "name": "[Force] push to remote [with tags]",
-    "content": "git push [-f] [--follow-tags] <remote> <branch>",
+    "content": "git push [-f] [--follow-tags] &#60;remote&#62; &#60;branch&#62;",
     "section": "Pull and push",
     "isEndOfSubsection": false
   },
   {
     "name": "Push just tags to remote",
-    "content": "git push <remote> --tags",
+    "content": "git push &#60;remote&#62; --tags",
     "section": "Pull and push",
     "isEndOfSubsection": false
   },
@@ -67,7 +67,7 @@
   },
   {
     "name": "Show [staged] file differences",
-    "content": "git diff [--staged] <file>",
+    "content": "git diff [--staged] &#60;file&#62;",
     "section": "Changes",
     "isEndOfSubsection": false
   },
@@ -79,13 +79,13 @@
   },
   {
     "name": "Stage file",
-    "content": "git add <file>",
+    "content": "git add &#60;file&#62;",
     "section": "Changes",
     "isEndOfSubsection": false
   },
   {
     "name": "Unstage file",
-    "content": "git reset <file>",
+    "content": "git reset &#60;file&#62;",
     "section": "Changes",
     "isEndOfSubsection": false
   },
@@ -97,13 +97,13 @@
   },
   {
     "name": "Rename file",
-    "content": "git mv <old name> <new name>",
+    "content": "git mv &#60;old name&#62; &#60;new name&#62;",
     "section": "Changes",
     "isEndOfSubsection": false
   },
   {
     "name": "Delete file",
-    "content": "git rm <file>",
+    "content": "git rm &#60;file&#62;",
     "section": "Changes",
     "isEndOfSubsection": true
   },
@@ -139,7 +139,7 @@
   },
   {
     "name": "Show commit details",
-    "content": "git show <hash>",
+    "content": "git show &#60;hash&#62;",
     "section": "Commits",
     "isEndOfSubsection": false
   },
@@ -151,43 +151,43 @@
   },
   {
     "name": "Commit changes",
-    "content": "git commit [-m <message>]",
+    "content": "git commit [-m &#60;message&#62;]",
     "section": "Commits",
     "isEndOfSubsection": false
   },
   {
     "name": "Modify last commit",
-    "content": "git commit --amend [-m <message>]",
+    "content": "git commit --amend [-m &#60;message&#62;]",
     "section": "Commits",
     "isEndOfSubsection": false
   },
   {
     "name": "Delete commit [and changes]",
-    "content": "git reset [--hard] <hash>",
+    "content": "git reset [--hard] &#60;hash&#62;",
     "section": "Commits",
     "isEndOfSubsection": false
   },
   {
     "name": "Refer to nth previous commit",
-    "content": "HEAD~<n>",
+    "content": "HEAD~&#60;n&#62;",
     "section": "Commits",
     "isEndOfSubsection": true
   },
   {
     "name": "Tag commit",
-    "content": "git tag -a <tag> [-m <message>] [<hash>]",
+    "content": "git tag -a &#60;tag&#62; [-m &#60;message&#62;] [&#60;hash&#62;]",
     "section": "Commits",
     "isEndOfSubsection": false
   },
   {
     "name": "Delete tag locally",
-    "content": "git tag -d <tag>",
+    "content": "git tag -d &#60;tag&#62;",
     "section": "Commits",
     "isEndOfSubsection": false
   },
   {
     "name": "Delete tag from remote",
-    "content": "git push <remote> <:tag>",
+    "content": "git push &#60;remote&#62; &#60;:tag&#62;",
     "section": "Commits",
     "isEndOfSubsection": false
   },
@@ -199,56 +199,56 @@
   },
   {
     "name": "Show branch differences",
-    "content": "git diff <some branch> <other branch>",
+    "content": "git diff &#60;some branch&#62; &#60;other branch&#62;",
     "section": "Branches",
     "isEndOfSubsection": true,
     "isEndOfSubsection": false
   },
   {
     "name": "Create branch",
-    "content": "git branch <branch>",
+    "content": "git branch &#60;branch&#62;",
     "section": "Branches",
     "isEndOfSubsection": false
   },
   {
     "name": "Switch to branch",
-    "content": "git checkout <branch>",
+    "content": "git checkout &#60;branch&#62;",
     "section": "Branches",
     "isEndOfSubsection": false
   },
   {
     "name": "Rename branch",
-    "content": "git branch -m <old name> <new name>",
+    "content": "git branch -m &#60;old name&#62; &#60;new name&#62;",
     "section": "Branches",
     "isEndOfSubsection": true
   },
   {
     "name": "Merge branch",
-    "content": "git merge <branch to be merged> <target branch>",
+    "content": "git merge &#60;branch to be merged&#62; &#60;target branch&#62;",
     "section": "Branches",
     "isEndOfSubsection": false
   },
   {
     "name": "Rebase branch [interactively]",
-    "content": "git rebase [-i] [<branch>] [<hash>]",
+    "content": "git rebase [-i] [&#60;branch&#62;] [&#60;hash&#62;]",
     "section": "Branches",
     "isEndOfSubsection": true
   },
   {
     "name": "Delete branch locally",
-    "content": "git branch -d <branch>",
+    "content": "git branch -d &#60;branch&#62;",
     "section": "Branches",
     "isEndOfSubsection": false
   },
   {
     "name": "Delete branch from remote",
-    "content": "git push <remote> <:branch>",
+    "content": "git push &#60;remote&#62; &#60;:branch&#62;",
     "section": "Branches",
     "isEndOfSubsection": false
   },
   {
     "name": "Delete branches not in remote",
-    "content": "git remote prune <remote>",
+    "content": "git remote prune &#60;remote&#62;",
     "section": "Branches",
     "isEndOfSubsection": false
   }

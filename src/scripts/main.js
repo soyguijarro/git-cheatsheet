@@ -19,9 +19,10 @@ const updatePageOnSearch = event => {
       mainElt.appendChild(noResultsElt);
     }
 
-    const addHighlight = (string) => (
-      string.replace(searchRegExp, '<span class="main-section-highlight">$&</span>')
-    );
+    const addHighlight = string => {
+      if (!(searchString && searchString.length > 0)) return string;
+      return string.replace(searchRegExp, '<span class="main-section-highlight">$&</span>');
+    };
     filteredData.forEach(item => {
       const sectionId = item.section.toLowerCase().replace(/ /g, '-');
       let sectionElt = document.getElementById(sectionId);
