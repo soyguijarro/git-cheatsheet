@@ -10,7 +10,7 @@
     "lint": "eslint src",
     "prestart": "npm prune && npm install",
     "predist": "npm prune && npm install && [ ! -d dist ] || rm -r -f dist",
-    "predeploy": "npm run dist && cd dist && git init && git add . && git commit -m 'Deploy to GitHub Pages'",
+    "predeploy": "npm run dist && cd dist && echo 'gitcheatsheet.soyguijarro.com' > CNAME && git init && git add . && git commit -m 'Deploy'",
     "preversion": "[[ $(git rev-parse --abbrev-ref HEAD) == *master* ]] || { echo 'Not on master branch'; exit 1; }",
     "postversion": "git push --follow-tags origin master && npm run deploy"
   },
