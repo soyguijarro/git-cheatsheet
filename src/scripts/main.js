@@ -45,12 +45,15 @@ const initializePage = () => {
   updateCheatsheetOnInput();
 };
 
-const resetSearchField = () => {
+const resetSearchField = event => {
+  if (event.key && event.key !== 'Escape' || event.keyCode && event.keyCode !== 27) return;
+
   searchElt.value = '';
   initializePage();
 };
 
 searchElt.addEventListener('input', updateCheatsheetOnInput, false);
+document.addEventListener('keyup', resetSearchField, false);
 headerLogoElt.addEventListener('click', resetSearchField, false);
 
 initializePage();
