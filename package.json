@@ -1,6 +1,6 @@
 {
   "name": "git-cheatsheet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A filterable cheatsheet for the Git control version system",
   "scripts": {
     "start": "node tools/src-server.js",
