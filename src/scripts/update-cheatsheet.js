@@ -9,7 +9,7 @@ const updateCheatsheet = (data, searchString) => {
     const noResultsElt = document.createElement('section');
 
     noResultsElt.className = 'main-section-no-results';
-    noResultsElt.innerHTML = 'There are no matches.';
+    noResultsElt.innerHTML = 'There are no results.';
     mainElt.appendChild(noResultsElt);
 
     return;
