@@ -1,13 +1,18 @@
 {
   "name": "git-cheatsheet",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "A filterable cheatsheet for the Git control version system",
   "scripts": {
     "start": "node tools/src-server.js",
     "dist": "node tools/build.js",
     "dist:serve": "npm run dist && node tools/dist-server.js",
+    "deploy": "cd dist && git push -f git@github.com:soyguijarro/git-cheatsheet.git master:gh-pages && cd ..",
     "lint": "eslint src",
-    "prestart": "npm prune && npm install"
+    "prestart": "npm prune && npm install",
+    "predist": "npm prune && npm install && [ ! -d dist ] || rm -r -f dist",
+    "predeploy": "npm run dist && cd dist && git init && git add . && git commit -m 'Deploy to GitHub Pages'",
+    "preversion": "[[ $(git rev-parse --abbrev-ref HEAD) == *master* ]] || { echo 'Not on master branch'; exit 1; }",
+    "postversion": "git push --follow-tags origin master && npm run deploy"
   },
   "devDependencies": {
     "autoprefixer": "6.3.6",
