@@ -132,8 +132,8 @@
     "isEndOfSubsection": false
   },
   {
-    "name": "Show commit history",
-    "content": "git log [--oneline]",
+    "name": "Show commit [and branch] history",
+    "content": "git log [--graph] [--oneline]",
     "section": "Commits",
     "isEndOfSubsection": false
   },
@@ -168,8 +168,8 @@
     "isEndOfSubsection": false
   },
   {
-    "name": "Refer to previous commit",
-    "content": "HEAD~1",
+    "name": "Refer to nth previous commit",
+    "content": "HEAD~<n>",
     "section": "Commits",
     "isEndOfSubsection": true
   },
