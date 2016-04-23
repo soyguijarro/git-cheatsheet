@@ -8,6 +8,8 @@ const searchElt = document.querySelector('.header-search');
 const headerLogoElt = document.querySelector('.header-logo');
 
 const updatePageOnSearch = event => {
+  const encodeLessGreaterThanSigns = string => string.replace(/</g, '&#60;').replace(/>/g, '&#62;');
+
   const updatePage = (filteredData, searchString) => {
     const searchRegExp = new RegExp(searchString, 'ig');
     const mainElt = document.querySelector('.main');
@@ -47,10 +49,10 @@ const updatePageOnSearch = event => {
         'main-section-extra-space' : ''}`;
       itemElt.innerHTML =
         `<span class="main-section-item-title">
-          ${addHighlight(item.name)}
+          ${addHighlight(encodeLessGreaterThanSigns(item.name))}
         </span>
         <pre class="main-section-item-content">
-          ${addHighlight(item.content)}
+          ${addHighlight(encodeLessGreaterThanSigns(item.content))}
         </pre>`;
 
       sectionElt.appendChild(itemElt);
@@ -66,7 +68,7 @@ const updatePageOnSearch = event => {
     item.name.search(searchRegExp) !== -1 || item.content.search(searchRegExp) !== -1
   ));
 
-  return updatePage(filteredData, searchString);
+  return updatePage(filteredData, encodeLessGreaterThanSigns(searchString));
 };
 
 const focusSearchFieldOnKeyPress = event => {
