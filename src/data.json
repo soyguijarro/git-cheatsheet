@@ -6,13 +6,13 @@
     "isEndOfSubsection": false
   },
   {
-    "name": "Create local repo",
-    "content": "git init <name>",
+    "name": "Create local repository [in new directory]",
+    "content": "git init [<name>]",
     "section": "Set up",
     "isEndOfSubsection": false
   },
   {
-    "name": "Download online repo",
+    "name": "Download online repository",
     "content": "git clone <url>",
     "section": "Set up",
     "isEndOfSubsection": false
