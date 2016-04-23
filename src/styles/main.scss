@@ -10,13 +10,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-:focus,
-::-moz-focus-inner,
-input:-moz-focusring {
-  border: none;
-  outline: none;
-}
-
 body {
   font-family: $body-font;
   color: $body-color;
@@ -98,6 +91,7 @@ a {
 
     &:focus {
       border: 1px solid darken($link-color, 10%);
+      outline: none;
     }
   }
 }
