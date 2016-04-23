@@ -27,8 +27,8 @@ const focusSearchFieldOnKeyUp = event => {
 
   if (!/^[a-z]$/i.test(pressedKey) || event.altKey || event.ctrlKey || event.metaKey) return;
 
-  searchElt.value = pressedKey;
   searchElt.focus();
+  searchElt.value = pressedKey;
 
   const eventDup = new Event('input');
   searchElt.dispatchEvent(eventDup);
@@ -47,7 +47,6 @@ const initializePage = () => {
 
 const resetSearchField = event => {
   if (event.key && event.key !== 'Escape' || event.keyCode && event.keyCode !== 27) return;
-  console.log('Reset');
 
   searchElt.value = '';
   initializePage();
