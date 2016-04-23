@@ -47,13 +47,14 @@ const initializePage = () => {
 
 const resetSearchField = event => {
   if (event.key && event.key !== 'Escape' || event.keyCode && event.keyCode !== 27) return;
+  console.log('Reset');
 
   searchElt.value = '';
   initializePage();
 };
 
 searchElt.addEventListener('input', updateCheatsheetOnInput, false);
-document.addEventListener('keyup', resetSearchField, false);
+document.addEventListener('keypress', resetSearchField, false);
 headerLogoElt.addEventListener('click', resetSearchField, false);
 
 initializePage();
