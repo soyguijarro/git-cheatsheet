@@ -30,6 +30,12 @@
     "isEndOfSubsection": false
   },
   {
+    "name": "Change remote's URL",
+    "content": "git remote set-url <remote> <url>",
+    "section": "Remotes",
+    "isEndOfSubsection": false
+  },
+  {
     "name": "Delete remote",
     "content": "git remote remove <remote>",
     "section": "Remotes",
