@@ -168,7 +168,7 @@
     "isEndOfSubsection": false
   },
   {
-    "name": "Delete commit [and changes]",
+    "name": "Go to commit [and discard changes]",
     "content": "git reset [--hard] <hash>",
     "section": "Commits",
     "isEndOfSubsection": false
