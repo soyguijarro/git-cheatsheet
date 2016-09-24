@@ -7,7 +7,7 @@
     "dist": "node tools/build.js",
     "dist:serve": "npm run dist && node tools/dist-server.js",
     "deploy": "cd dist && git push -f git@github.com:soyguijarro/git-cheatsheet.git master:gh-pages && cd ..",
-    "lint": "eslint src",
+    "lint": "eslint src && stylelint src/**/*.scss",
     "prestart": "npm prune && npm install",
     "predist": "npm prune && npm install && [ ! -d dist ] || rm -r -f dist",
     "predeploy": "npm run dist && cd dist && echo 'gitcheatsheet.soyguijarro.com' > CNAME && git init && git add . && git commit -m 'Deploy'",
