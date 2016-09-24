@@ -13,13 +13,14 @@
 body {
   font-family: $body-font;
   color: $body-color;
+  line-height: 1.25em;
 
   background: {
     color: $background-color;
     image: url($background-image);
   }
 
-  margin: 1em;
+  margin: 1.5em 1em;
 }
 
 a {
@@ -43,7 +44,7 @@ a {
   }
 
   &-logo {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.75em;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -103,7 +104,7 @@ a {
   border-radius: 0.3em;
   min-height: calc(100vh - 13.2em);
   padding: 0 2em;
-  margin: 1em 0;
+  margin: 1.25em 0;
 
   @media screen and (min-width: $small-bp) {
     min-height: calc(100vh - 9.5em);
@@ -136,7 +137,7 @@ a {
       &-content {
         font-family: $monospaced-font;
         white-space: normal;
-        margin: 0 0 1em;
+        margin: 0 0 1.25em;
       }
     }
 
