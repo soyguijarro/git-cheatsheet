@@ -4,13 +4,13 @@
   "description": "A filterable cheatsheet for the Git version control system",
   "scripts": {
     "start": "node tools/src-server.js",
-    "dist": "node tools/build.js",
-    "dist:serve": "npm run dist && node tools/dist-server.js",
+    "build": "node tools/build.js",
+    "build:serve": "npm run build && node tools/dist-server.js",
     "deploy": "cd dist && git push -f git@github.com:soyguijarro/git-cheatsheet.git master:gh-pages && cd ..",
     "lint": "eslint src && stylelint src/**/*.scss",
-    "prestart": "npm prune && npm install",
-    "predist": "npm prune && npm install && [ ! -d dist ] || rm -r -f dist",
-    "predeploy": "npm run dist && cd dist && echo 'gitcheatsheet.soyguijarro.com' > CNAME && git init && git add . && git commit -m 'Deploy'",
+    "prestart": "if [ ! -d node_modules ] ; then npm install; fi",
+    "prebuild": "npm install && rm -r -f dist",
+    "predeploy": "npm run build && cd dist && echo 'gitcheatsheet.soyguijarro.com' > CNAME && git init && git add . && git commit -m 'Deploy'",
     "preversion": "[[ $(git rev-parse --abbrev-ref HEAD) == *master* ]] || { echo 'Not on master branch'; exit 1; }",
     "postversion": "git push --follow-tags origin master && npm run deploy"
   },
