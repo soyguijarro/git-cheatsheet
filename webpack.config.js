@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
@@ -5,8 +6,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
+/* eslint-enable import/no-extraneous-dependencies */
 
-const getPlugins = env => {
+const getPlugins = (env) => {
   const GLOBALS = {
     'process.env.NODE_ENV': JSON.stringify(env),
     __DEV__: env === 'development',
@@ -36,7 +38,7 @@ const getPlugins = env => {
   return plugins;
 };
 
-const getLoaders = env => {
+const getLoaders = (env) => {
   const cssLoadersObj = env === 'development' ?
     { test: /\.css$/, loaders: ['style', 'css?sourceMap', 'postcss'] } :
     { test: /\.css$/, loader: ExtractTextPlugin.extract(['css', 'postcss']) };
@@ -78,32 +80,30 @@ const getLoaders = env => {
   ];
 };
 
-const getEntry = env => {
+const getEntry = (env) => {
   const entry = ['./scripts/main'];
   if (env === 'development') entry.push('webpack-hot-middleware/client?reload=true');
 
   return entry;
 };
 
-module.exports = env => (
-  {
-    context: path.join(__dirname, './src'),
-    debug: true,
-    devtool: env === 'development' ? 'eval-source-map' : 'eval',
-    noInfo: true,
-    entry: getEntry(env),
-    output: {
-      path: path.join(__dirname, './dist'),
-      publicPath: '',
-      filename: 'scripts.js',
-    },
-    plugins: getPlugins(env),
-    module: {
-      loaders: getLoaders(env),
-    },
-    postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
-    resolve: {
-      extensions: ['', '.js'],
-    },
-  }
-);
+module.exports = env => ({
+  context: path.join(__dirname, './src'),
+  debug: true,
+  devtool: env === 'development' ? 'eval-source-map' : 'eval',
+  noInfo: true,
+  entry: getEntry(env),
+  output: {
+    path: path.join(__dirname, './dist'),
+    publicPath: '',
+    filename: 'scripts.js',
+  },
+  plugins: getPlugins(env),
+  module: {
+    loaders: getLoaders(env),
+  },
+  postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
+  resolve: {
+    extensions: ['', '.js'],
+  },
+});

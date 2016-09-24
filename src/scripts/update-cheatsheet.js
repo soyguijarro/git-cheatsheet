@@ -15,7 +15,7 @@ const updateCheatsheet = (data, searchString) => {
     return;
   }
 
-  data.forEach(item => {
+  data.forEach((item) => {
     const sectionId = item.section.toLowerCase().replace(/ /g, '-');
     let sectionElt = document.getElementById(sectionId);
 

@@ -13,6 +13,7 @@
 body {
   font-family: $body-font;
   color: $body-color;
+
   background: {
     color: $background-color;
     image: url($background-image);
@@ -43,9 +44,7 @@ a {
 
   &-logo {
     margin-bottom: 0.5em;
-
     cursor: pointer;
-
     display: flex;
     align-items: center;
 
@@ -64,6 +63,7 @@ a {
         size: 1.5em;
         weight: 400;
       }
+
       color: $secondary-color;
     }
   }
@@ -73,20 +73,21 @@ a {
       family: $heading-font;
       size: 0.9em;
     }
+
     color: $body-color;
+
     background: {
       color: $box-background-color;
       image: url($search-icon-image);
       repeat: no-repeat;
       position: 0.625em 50%;
     }
+
     border: 1px solid darken($box-border-color, 10%);
     border-radius: 1.25em;
     box-shadow: 0 1px 4px #ddd inset;
-
     margin-left: 1em;
     padding: 0.35em 1em 0.45em 2.2em;
-
     transition: border 0.2s ease-out;
 
     &:focus {
@@ -100,7 +101,6 @@ a {
   background-color: $box-background-color;
   border: 1px solid $box-border-color;
   border-radius: 0.3em;
-
   min-height: calc(100vh - 13.2em);
   padding: 0 2em;
   margin: 1em 0;
@@ -117,32 +117,31 @@ a {
         family: $heading-font;
         size: 1.2em;
       }
-      line-height: 2em;
 
-      margin: 0 0 0.5em 0;
+      line-height: 2em;
+      margin: 0 0 0.5em;
     }
 
     &-item {
       &-title {
-        color: $secondary-color;
         font: {
           size: 0.8em;
           weight: 400;
         }
+
+        color: $secondary-color;
         text-transform: uppercase;
       }
 
       &-content {
         font-family: $monospaced-font;
         white-space: normal;
-
-        margin: 0 0 1em 0;
+        margin: 0 0 1em;
       }
     }
 
     &-no-results {
       text-align: center;
-
       margin: 2.5em 0;
     }
 

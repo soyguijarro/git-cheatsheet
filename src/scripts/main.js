@@ -9,7 +9,7 @@ if (module.hot) module.hot.accept();
 const searchElt = document.querySelector('.header-search');
 const headerLogoElt = document.querySelector('.header-logo');
 
-const updateCheatsheetOnInput = event => {
+const updateCheatsheetOnInput = (event) => {
   if (!event) return updateCheatsheet(data);
 
   const searchString = escapeStringRegexp(event.target.value);
@@ -22,7 +22,7 @@ const updateCheatsheetOnInput = event => {
   return updateCheatsheet(filteredData, encodeLessGreaterThanSigns(searchString));
 };
 
-const focusSearchFieldOnKeyUp = event => {
+const focusSearchFieldOnKeyUp = (event) => {
   const pressedKey = event.key || String.fromCharCode(event.keyCode).toLowerCase();
 
   if (!/^[a-z]$/i.test(pressedKey) || event.altKey || event.ctrlKey || event.metaKey) return;
@@ -45,8 +45,8 @@ const initializePage = () => {
   updateCheatsheetOnInput();
 };
 
-const resetSearchField = event => {
-  if (event.key && event.key !== 'Escape' || event.keyCode && event.keyCode !== 27) return;
+const resetSearchField = (event) => {
+  if ((event.key && event.key !== 'Escape') || (event.keyCode && event.keyCode !== 27)) return;
 
   searchElt.value = '';
   initializePage();
