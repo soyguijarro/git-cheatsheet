@@ -23,17 +23,18 @@ const getResultSectionElt = (id, text) => createSectionElt({
 });
 
 const getResultItemElt = (searchString, encodeText) => ({ name, content, isEndOfSubsection }) => {
-  const highlightSearchString = wrapTextWithClass(encodeText(searchString), CLASSNAMES.HIGHLIGHT);
-  const formatResultItemText = compose(highlightSearchString, encodeText);
+  const highlightText = wrapTextWithClass(CLASSNAMES.HIGHLIGHT);
+  const highlightSearchString = highlightText(encodeText(searchString));
+  const formatText = compose(highlightSearchString, encodeText);
 
   return createDivElt({
     className: `${CLASSNAMES.ITEM} ${isEndOfSubsection ? CLASSNAMES.ITEM_SPACE : ''}`,
     innerHTML:
       `<span class=${CLASSNAMES.ITEM_TITLE}>
-        ${formatResultItemText(name)}
+        ${formatText(name)}
       </span>
       <pre class=${CLASSNAMES.ITEM_CONTENT}>
-        ${formatResultItemText(content)}
+        ${formatText(content)}
       </pre>`,
   });
 };

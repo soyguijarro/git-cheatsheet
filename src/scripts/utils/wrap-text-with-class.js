@@ -5,9 +5,9 @@ const replaceText = replacement => (text, target) => {
 
 const replaceTextWithSpan = className => replaceText(`<span class=${className}>$&</span>`);
 
-export default (textToWrap, wrapperClase) => (targetString) => {
-  if (!textToWrap || !textToWrap.length) return targetString;
+export default className => text => (targetString) => {
+  if (!text || !text.length) return targetString;
 
-  const wrapTextWithClass = replaceTextWithSpan(wrapperClase);
-  return wrapTextWithClass(textToWrap, targetString);
+  const wrapTextWithClass = replaceTextWithSpan(className);
+  return wrapTextWithClass(text, targetString);
 };
