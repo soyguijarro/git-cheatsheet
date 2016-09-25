@@ -11,7 +11,6 @@
     "prestart": "if [ ! -d node_modules ] ; then npm install; fi",
     "prebuild": "npm install && rm -r -f dist",
     "predeploy": "npm run build && cd dist && echo 'gitcheatsheet.soyguijarro.com' > CNAME && git init && git add . && git commit -m 'Deploy'",
-    "preversion": "[[ $(git rev-parse --abbrev-ref HEAD) == *master* ]] || { echo 'Not on master branch'; exit 1; }",
     "postversion": "git push --follow-tags origin master && npm run deploy"
   },
   "dependencies": {
