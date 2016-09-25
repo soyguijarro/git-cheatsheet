@@ -1,51 +1,66 @@
-import encodeLessGreaterThanSigns from './encode-less-greater-than-signs';
-import highlightText from './highlight-text';
+import { compose } from 'ramda';
+import createDOMNode from './utils/create-dom-node';
+import wrapTextWithClass from './utils/wrap-text-with-class';
+import { CLASSNAMES, TEXTS } from './constants';
 
-const updateCheatsheet = (data, searchString) => {
-  const mainElt = document.querySelector('.main');
-  mainElt.innerHTML = '';
+const createSectionElt = createDOMNode('section');
+const createDivElt = createDOMNode('div');
 
-  if (!(data && data.length > 0)) {
-    const noResultsElt = document.createElement('section');
+const getNoResultsElt = () => createSectionElt({
+  className: CLASSNAMES.NO_RESULTS,
+  innerHTML: TEXTS.NO_RESULTS,
+});
 
-    noResultsElt.className = 'main-section-no-results';
-    noResultsElt.innerHTML = 'There are no results.';
-    mainElt.appendChild(noResultsElt);
+const getResultSectionElt = (id, text) => createSectionElt({
+  id,
+  className: CLASSNAMES.SECTION,
+  innerHTML:
+    `<h2 class=${CLASSNAMES.SECTION_TITLE}>
+      <a href="#${id}">
+        ${text}
+      </a>
+    </h2>`,
+});
 
-    return;
-  }
+const getResultItemElt = (searchString, encodeText) => ({ name, content, isEndOfSubsection }) => {
+  const highlightSearchString = wrapTextWithClass(encodeText(searchString), CLASSNAMES.HIGHLIGHT);
+  const formatResultItemText = compose(highlightSearchString, encodeText);
 
-  data.forEach((item) => {
-    const sectionId = item.section.toLowerCase().replace(/ /g, '-');
-    let sectionElt = document.getElementById(sectionId);
-
-    if (!sectionElt) {
-      sectionElt = document.createElement('section');
-      sectionElt.className = 'main-section';
-      sectionElt.id = sectionId;
-      sectionElt.innerHTML =
-        `<h2 class="main-section-title">
-          <a href="#${sectionId}">
-            ${item.section}
-          </a>
-        </h2>`;
-
-      mainElt.appendChild(sectionElt);
-    }
-
-    const itemElt = document.createElement('div');
-    itemElt.className = `main-section-item ${item.isEndOfSubsection ?
-      'main-section-extra-space' : ''}`;
-    itemElt.innerHTML =
-      `<span class="main-section-item-title">
-        ${highlightText(encodeLessGreaterThanSigns(item.name), searchString)}
+  return createDivElt({
+    className: `${CLASSNAMES.ITEM} ${isEndOfSubsection ? CLASSNAMES.ITEM_SPACE : ''}`,
+    innerHTML:
+      `<span class=${CLASSNAMES.ITEM_TITLE}>
+        ${formatResultItemText(name)}
       </span>
-      <pre class="main-section-item-content">
-        ${highlightText(encodeLessGreaterThanSigns(item.content), searchString)}
-      </pre>`;
-
-    sectionElt.appendChild(itemElt);
+      <pre class=${CLASSNAMES.ITEM_CONTENT}>
+        ${formatResultItemText(content)}
+      </pre>`,
   });
 };
 
-export default updateCheatsheet;
+const convertToLowerCase = string => string.toLowerCase();
+const replaceSpacesWithHyphens = string => string.replace(/ /g, '-');
+const getResultSectionEltId = compose(convertToLowerCase, replaceSpacesWithHyphens);
+
+export default encodeText => (items, searchString) => {
+  const mainElt = document.querySelector(`.${CLASSNAMES.MAIN}`);
+  mainElt.innerHTML = '';
+
+  if (!items || !items.length) {
+    mainElt.appendChild(getNoResultsElt());
+    return;
+  }
+
+  const getFormattedResultItemElt = getResultItemElt(searchString, encodeText);
+  items.forEach((item) => {
+    const sectionId = getResultSectionEltId(item.section);
+    let sectionElt = document.querySelector(`#${sectionId}`);
+
+    if (!sectionElt) {
+      sectionElt = getResultSectionElt(sectionId, item.section);
+      mainElt.appendChild(sectionElt);
+    }
+
+    sectionElt.appendChild(getFormattedResultItemElt(item));
+  });
+};

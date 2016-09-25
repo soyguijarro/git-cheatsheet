@@ -207,8 +207,7 @@
     "name": "Show branch differences",
     "content": "git diff <some branch> <other branch>",
     "section": "Branches",
-    "isEndOfSubsection": true,
-    "isEndOfSubsection": false
+    "isEndOfSubsection": true
   },
   {
     "name": "Create branch",

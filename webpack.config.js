@@ -81,7 +81,7 @@ const getLoaders = (env) => {
 };
 
 const getEntry = (env) => {
-  const entry = ['./scripts/main'];
+  const entry = ['./scripts/index'];
   if (env === 'development') entry.push('webpack-hot-middleware/client?reload=true');
 
   return entry;

@@ -1,25 +1,24 @@
 import escapeStringRegexp from 'escape-string-regexp';
+import encodeText from './utils/encode-text';
 import updateCheatsheet from './update-cheatsheet';
-import encodeLessGreaterThanSigns from './encode-less-greater-than-signs';
+import { ANGLE_BRACKETS_CHAR_ENTITIES, CLASSNAMES, ESC_KEY } from './constants';
 import data from '../data.json';
 import '../styles/main.scss';
 
 if (module.hot) module.hot.accept();
 
-const searchElt = document.querySelector('.header-search');
-const headerLogoElt = document.querySelector('.header-logo');
+const encodeAngleBrackets = encodeText(ANGLE_BRACKETS_CHAR_ENTITIES);
+const updateCheatsheetWithEncoding = updateCheatsheet(encodeAngleBrackets);
+
+const searchElt = document.querySelector(`.${CLASSNAMES.SEARCH}`);
+const headerLogoElt = document.querySelector(`.${CLASSNAMES.LOGO}`);
 
 const updateCheatsheetOnInput = (event) => {
-  if (!event) return updateCheatsheet(data);
-
   const searchString = escapeStringRegexp(event.target.value);
   const searchRegExp = new RegExp(searchString, 'ig');
+  const filteredData = data.filter(item => searchRegExp.test(item.name + item.content));
 
-  const filteredData = data.filter(item =>
-    item.name.search(searchRegExp) !== -1 || item.content.search(searchRegExp) !== -1
-  );
-
-  return updateCheatsheet(filteredData, encodeLessGreaterThanSigns(searchString));
+  return updateCheatsheetWithEncoding(filteredData, searchString);
 };
 
 const focusSearchFieldOnKeyUp = (event) => {
@@ -36,24 +35,21 @@ const focusSearchFieldOnKeyUp = (event) => {
   document.removeEventListener('keyup', focusSearchFieldOnKeyUp, false);
 };
 
-const activateTypeToSearch = () => {
+const resetPage = () => {
   document.addEventListener('keyup', focusSearchFieldOnKeyUp, false);
-};
-
-const initializePage = () => {
-  activateTypeToSearch();
-  updateCheatsheetOnInput();
+  updateCheatsheetWithEncoding(data);
 };
 
 const resetSearchField = (event) => {
-  if ((event.key && event.key !== 'Escape') || (event.keyCode && event.keyCode !== 27)) return;
+  const isClickEvent = event.type === 'click';
+  const isEscKeyEvent = event.key === ESC_KEY.NAME || event.keyCode === ESC_KEY.CODE;
+  if (!isClickEvent && !isEscKeyEvent) return;
 
   searchElt.value = '';
-  initializePage();
+  resetPage();
 };
 
 searchElt.addEventListener('input', updateCheatsheetOnInput, false);
-document.addEventListener('keypress', resetSearchField, false);
+searchElt.addEventListener('keypress', resetSearchField, false);
 headerLogoElt.addEventListener('click', resetSearchField, false);
-
-initializePage();
+resetPage();

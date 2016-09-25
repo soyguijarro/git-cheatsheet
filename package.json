@@ -15,7 +15,8 @@
     "postversion": "git push --follow-tags origin master && npm run deploy"
   },
   "dependencies": {
-    "escape-string-regexp": "1.0.5"
+    "escape-string-regexp": "1.0.5",
+    "ramda": "0.22.1"
   },
   "devDependencies": {
     "autoprefixer": "6.4.1",
