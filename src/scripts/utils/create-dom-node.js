@@ -1,4 +1,4 @@
-import { compose } from 'ramda';
+import compose from 'ramda/src/compose';
 
 const createNewNode = document.createElement.bind(document);
 
