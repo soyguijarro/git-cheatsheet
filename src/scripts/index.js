@@ -1,6 +1,13 @@
 import escapeStringRegexp from 'escape-string-regexp';
+import compose from 'ramda/src/compose';
+
 import encodeText from './utils/encode-text';
+import checkPressedKey from './utils/check-pressed-key';
+import checkEventType from './utils/check-event-type';
+import runOnCondition from './utils/run-on-condition';
+
 import updateCheatsheet from './update-cheatsheet';
+
 import { ANGLE_BRACKETS_CHAR_ENTITIES, CLASSNAMES, ESC_KEY } from './constants';
 import data from '../data.json';
 import '../styles/main.scss';
@@ -40,16 +47,19 @@ const resetPage = () => {
   updateCheatsheetWithEncoding(data);
 };
 
-const resetSearchField = (event) => {
-  const isClickEvent = event.type === 'click';
-  const isEscKeyEvent = event.key === ESC_KEY.NAME || event.keyCode === ESC_KEY.CODE;
-  if (!isClickEvent && !isEscKeyEvent) return;
-
+const resetSearchField = () => {
   searchElt.value = '';
   resetPage();
 };
 
-searchElt.addEventListener('input', updateCheatsheetOnInput, false);
-searchElt.addEventListener('keypress', resetSearchField, false);
-headerLogoElt.addEventListener('click', resetSearchField, false);
-resetPage();
+const runResetSearchField = runOnCondition(resetSearchField);
+const isEscKeyEvent = checkPressedKey({ name: ESC_KEY.NAME, code: ESC_KEY.CODE });
+const isClickEvent = checkEventType('click');
+const initPage = () => {
+  searchElt.addEventListener('input', updateCheatsheetOnInput, false);
+  searchElt.addEventListener('keypress', compose(runResetSearchField, isEscKeyEvent), false);
+  headerLogoElt.addEventListener('click', compose(runResetSearchField, isClickEvent), false);
+  resetPage();
+};
+
+initPage();

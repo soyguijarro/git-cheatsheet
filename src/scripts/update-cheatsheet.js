@@ -1,6 +1,8 @@
 import compose from 'ramda/src/compose';
+
 import createDOMNode from './utils/create-dom-node';
 import wrapTextWithClass from './utils/wrap-text-with-class';
+
 import { CLASSNAMES, TEXTS } from './constants';
 
 const createSectionElt = createDOMNode('section');
