@@ -1,20 +1,24 @@
-import escapeStringRegexp from 'escape-string-regexp';
-
+import { encodeText, escapeRegExpSpecialChars } from './utils/text-transformers';
 import { checkKeyName, getKeyName } from './utils/dom-events-helpers';
 
-import { KEYS } from './constants';
+import renderCheatsheet from './render-cheatsheet';
+import filterData from './filter-data';
 
+import { CHAR_ENTITIES, KEYS } from './constants';
+
+// Auxiliary functions
 const isLetterKey = checkKeyName(KEYS.LETTER);
+const encodeCharEntities = encodeText(CHAR_ENTITIES);
 
-export const updateCheatsheetOnInput = (data, updateCheatsheet, elt) => {
-  const searchString = escapeStringRegexp(elt.value);
-  const searchRegExp = new RegExp(searchString, 'ig');
-  const filteredData = data.filter(item => searchRegExp.test(item.name + item.content));
+const renderCheatsheetWithEncoding = renderCheatsheet(encodeCharEntities);
+export const updateCheatsheet = (data, elt) => {
+  const searchString = escapeRegExpSpecialChars(elt.value);
+  const filteredData = filterData(data, searchString);
 
-  return updateCheatsheet(filteredData, searchString);
+  return renderCheatsheetWithEncoding(filteredData, searchString);
 };
 
-export const resetPage = (data, updateCheatsheet, elt) => {
+export const resetPage = (data, elt) => {
   const focusSearchFieldOnKeyUp = (event) => {
     const isLetterKeyPressed = isLetterKey(event);
     if (!isLetterKeyPressed) return;
@@ -31,12 +35,12 @@ export const resetPage = (data, updateCheatsheet, elt) => {
   };
 
   document.addEventListener('keyup', focusSearchFieldOnKeyUp, false);
-  updateCheatsheet(data);
+  updateCheatsheet(data, elt);
 };
 
-export const resetSearchField = (data, updateCheatsheet, elt) => {
+export const resetSearchField = (data, elt) => {
   /* eslint-disable no-param-reassign */
   elt.value = '';
   /* eslint-enable no-param-reassign */
-  resetPage(data, updateCheatsheet, elt);
+  resetPage(data, elt);
 };

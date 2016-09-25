@@ -1,13 +1,11 @@
 import compose from 'ramda/src/compose';
 
-import { encodeText } from './utils/text-transformers';
 import { runOnCondition, addParams } from './utils/function-transformers';
 import { checkEventType, checkKeyName } from './utils/dom-events-helpers';
 
-import { updateCheatsheetOnInput, resetSearchField, resetPage } from './event-handlers';
-import updateCheatsheet from './update-cheatsheet';
+import { updateCheatsheet, resetSearchField, resetPage } from './event-handlers';
 
-import { CHAR_ENTITIES, CLASSNAMES, KEYS, EVENT_TYPES } from './constants';
+import { CLASSNAMES, KEYS, EVENT_TYPES } from './constants';
 import data from '../data.json';
 import '../styles/main.scss';
 
@@ -20,15 +18,11 @@ const searchElt = document.querySelector(`.${CLASSNAMES.SEARCH}`);
 // Auxiliary functions
 const isEscKey = checkKeyName(KEYS.ESC);
 const isClick = checkEventType(EVENT_TYPES.CLICK);
-
-const encodeCharEntities = encodeText(CHAR_ENTITIES);
-const updateCheatsheetWithEncoding = updateCheatsheet(encodeCharEntities);
-const addContext = addParams(data, updateCheatsheetWithEncoding, searchElt);
-
+const addContext = addParams(data, searchElt);
 const runOnConditionWithContext = compose(runOnCondition, addContext);
 
 // Event listeners
-const handleSearchFieldInput = addContext(updateCheatsheetOnInput);
+const handleSearchFieldInput = addContext(updateCheatsheet);
 searchElt.addEventListener('input', handleSearchFieldInput, false);
 
 const runResetSearchField = runOnConditionWithContext(resetSearchField);

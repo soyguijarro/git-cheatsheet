@@ -5,6 +5,7 @@ import { wrapTextWithClass } from './utils/text-transformers';
 
 import { CLASSNAMES, TEXTS } from './constants';
 
+// Auxiliary functions
 const createSectionElt = createDOMNode('section');
 const createDivElt = createDOMNode('div');
 
