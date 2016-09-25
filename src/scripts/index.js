@@ -1,10 +1,10 @@
-import escapeStringRegexp from 'escape-string-regexp';
 import compose from 'ramda/src/compose';
 
-import { encodeText } from './utils/text-transformer';
-import { checkEventType, checkKeyName, getKeyName } from './utils/dom-events-helper';
-import runOnCondition from './utils/run-on-condition';
+import { encodeText } from './utils/text-transformers';
+import { runOnCondition, addParams } from './utils/function-transformers';
+import { checkEventType, checkKeyName } from './utils/dom-events-helpers';
 
+import { updateCheatsheetOnInput, resetSearchField, resetPage } from './event-handlers';
 import updateCheatsheet from './update-cheatsheet';
 
 import { CHAR_ENTITIES, CLASSNAMES, KEYS, EVENT_TYPES } from './constants';
@@ -13,54 +13,30 @@ import '../styles/main.scss';
 
 if (module.hot) module.hot.accept();
 
-const isLetterKey = checkKeyName(KEYS.LETTER);
+// Page elements
+const headerLogoElt = document.querySelector(`.${CLASSNAMES.LOGO}`);
+const searchElt = document.querySelector(`.${CLASSNAMES.SEARCH}`);
+
+// Auxiliary functions
 const isEscKey = checkKeyName(KEYS.ESC);
 const isClick = checkEventType(EVENT_TYPES.CLICK);
 
 const encodeCharEntities = encodeText(CHAR_ENTITIES);
 const updateCheatsheetWithEncoding = updateCheatsheet(encodeCharEntities);
+const addContext = addParams(data, updateCheatsheetWithEncoding, searchElt);
 
-const searchElt = document.querySelector(`.${CLASSNAMES.SEARCH}`);
-const headerLogoElt = document.querySelector(`.${CLASSNAMES.LOGO}`);
+const runOnConditionWithContext = compose(runOnCondition, addContext);
 
-const updateCheatsheetOnInput = (event) => {
-  const searchString = escapeStringRegexp(event.target.value);
-  const searchRegExp = new RegExp(searchString, 'ig');
-  const filteredData = data.filter(item => searchRegExp.test(item.name + item.content));
+// Event listeners
+const handleSearchFieldInput = addContext(updateCheatsheetOnInput);
+searchElt.addEventListener('input', handleSearchFieldInput, false);
 
-  return updateCheatsheetWithEncoding(filteredData, searchString);
-};
+const runResetSearchField = runOnConditionWithContext(resetSearchField);
+const handleSearchFieldKeyPress = compose(runResetSearchField, isEscKey);
+searchElt.addEventListener('keypress', handleSearchFieldKeyPress, false);
 
-const focusSearchFieldOnKeyUp = (event) => {
-  const isLetterKeyPressed = isLetterKey(event);
-  if (!isLetterKeyPressed) return;
+const handleLogoClick = compose(runResetSearchField, isClick);
+headerLogoElt.addEventListener('click', handleLogoClick, false);
 
-  searchElt.focus();
-  searchElt.value = getKeyName(event);
-
-  const eventDup = new Event('input');
-  searchElt.dispatchEvent(eventDup);
-
-  document.removeEventListener('keyup', focusSearchFieldOnKeyUp, false);
-};
-
-const resetPage = () => {
-  document.addEventListener('keyup', focusSearchFieldOnKeyUp, false);
-  updateCheatsheetWithEncoding(data);
-};
-
-const resetSearchField = () => {
-  searchElt.value = '';
-  resetPage();
-};
-
-const runResetSearchField = runOnCondition(resetSearchField);
-
-const initPage = () => {
-  searchElt.addEventListener('input', updateCheatsheetOnInput, false);
-  searchElt.addEventListener('keypress', compose(runResetSearchField, isEscKey), false);
-  headerLogoElt.addEventListener('click', compose(runResetSearchField, isClick), false);
-  resetPage();
-};
-
-initPage();
+// Page initialization
+addContext(resetPage)();
