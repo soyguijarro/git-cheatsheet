@@ -1,11 +1,15 @@
-export const ANGLE_BRACKETS_CHAR_ENTITIES = {
+export const CHAR_ENTITIES = {
   '<': '&#60;',
   '>': '&#62;',
 };
 
-export const ESC_KEY = {
-  NAME: 'Escape',
-  CODE: 27,
+export const KEYS = {
+  ESC: 'Escape',
+  LETTER: /^[a-z]$/i,
+};
+
+export const EVENT_TYPES = {
+  CLICK: 'click',
 };
 
 export const CLASSNAMES = {

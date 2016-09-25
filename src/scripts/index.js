@@ -1,21 +1,24 @@
 import escapeStringRegexp from 'escape-string-regexp';
 import compose from 'ramda/src/compose';
 
-import encodeText from './utils/encode-text';
-import checkPressedKey from './utils/check-pressed-key';
-import checkEventType from './utils/check-event-type';
+import { encodeText } from './utils/text-transformer';
+import { checkEventType, checkKeyName, getKeyName } from './utils/dom-events-helper';
 import runOnCondition from './utils/run-on-condition';
 
 import updateCheatsheet from './update-cheatsheet';
 
-import { ANGLE_BRACKETS_CHAR_ENTITIES, CLASSNAMES, ESC_KEY } from './constants';
+import { CHAR_ENTITIES, CLASSNAMES, KEYS, EVENT_TYPES } from './constants';
 import data from '../data.json';
 import '../styles/main.scss';
 
 if (module.hot) module.hot.accept();
 
-const encodeAngleBrackets = encodeText(ANGLE_BRACKETS_CHAR_ENTITIES);
-const updateCheatsheetWithEncoding = updateCheatsheet(encodeAngleBrackets);
+const isLetterKey = checkKeyName(KEYS.LETTER);
+const isEscKey = checkKeyName(KEYS.ESC);
+const isClick = checkEventType(EVENT_TYPES.CLICK);
+
+const encodeCharEntities = encodeText(CHAR_ENTITIES);
+const updateCheatsheetWithEncoding = updateCheatsheet(encodeCharEntities);
 
 const searchElt = document.querySelector(`.${CLASSNAMES.SEARCH}`);
 const headerLogoElt = document.querySelector(`.${CLASSNAMES.LOGO}`);
@@ -29,12 +32,11 @@ const updateCheatsheetOnInput = (event) => {
 };
 
 const focusSearchFieldOnKeyUp = (event) => {
-  const pressedKey = event.key || String.fromCharCode(event.keyCode).toLowerCase();
-
-  if (!/^[a-z]$/i.test(pressedKey) || event.altKey || event.ctrlKey || event.metaKey) return;
+  const isLetterKeyPressed = isLetterKey(event);
+  if (!isLetterKeyPressed) return;
 
   searchElt.focus();
-  searchElt.value = pressedKey;
+  searchElt.value = getKeyName(event);
 
   const eventDup = new Event('input');
   searchElt.dispatchEvent(eventDup);
@@ -53,12 +55,11 @@ const resetSearchField = () => {
 };
 
 const runResetSearchField = runOnCondition(resetSearchField);
-const isEscKeyEvent = checkPressedKey({ name: ESC_KEY.NAME, code: ESC_KEY.CODE });
-const isClickEvent = checkEventType('click');
+
 const initPage = () => {
   searchElt.addEventListener('input', updateCheatsheetOnInput, false);
-  searchElt.addEventListener('keypress', compose(runResetSearchField, isEscKeyEvent), false);
-  headerLogoElt.addEventListener('click', compose(runResetSearchField, isClickEvent), false);
+  searchElt.addEventListener('keypress', compose(runResetSearchField, isEscKey), false);
+  headerLogoElt.addEventListener('click', compose(runResetSearchField, isClick), false);
   resetPage();
 };
 
