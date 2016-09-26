@@ -9,5 +9,3 @@ export const checkKeyName = keyName => (event) => {
   if (keyName instanceof RegExp) return keyName.test(pressedKeyName);
   return pressedKeyName === keyName;
 };
-
-export const checkEventType = type => event => event.type === type;

@@ -1,36 +1,39 @@
 import compose from 'ramda/src/compose';
 
 import { runOnCondition, addParams } from './utils/function-transformers';
-import { checkEventType, checkKeyName } from './utils/dom-events-helpers';
+import { checkKeyName } from './utils/key-events-helpers';
+import { addListenerToDOMNode } from './utils/dom-node-helpers';
 
 import { updateCheatsheet, resetSearchField, resetPage } from './event-handlers';
 
-import { CLASSNAMES, KEYS, EVENT_TYPES } from './constants';
+import { CLASSNAMES, ESC_KEY } from './constants';
 import data from '../data.json';
 import '../styles/main.scss';
 
 if (module.hot) module.hot.accept();
 
 // Page elements
-const headerLogoElt = document.querySelector(`.${CLASSNAMES.LOGO}`);
-const searchElt = document.querySelector(`.${CLASSNAMES.SEARCH}`);
+const rootElt = document;
+const headerLogoElt = rootElt.querySelector(`.${CLASSNAMES.LOGO}`);
+const searchElt = rootElt.querySelector(`.${CLASSNAMES.SEARCH}`);
 
 // Auxiliary functions
-const isEscKey = checkKeyName(KEYS.ESC);
-const isClick = checkEventType(EVENT_TYPES.CLICK);
+const isEscKeyEvent = checkKeyName(ESC_KEY);
 const addContext = addParams(data, searchElt);
 const runOnConditionWithContext = compose(runOnCondition, addContext);
+const addLogoListener = addListenerToDOMNode(headerLogoElt);
+const addSearchFieldListener = addListenerToDOMNode(searchElt);
 
 // Event listeners
 const handleSearchFieldInput = addContext(updateCheatsheet);
-searchElt.addEventListener('input', handleSearchFieldInput, false);
+addSearchFieldListener('input', handleSearchFieldInput);
 
-const runResetSearchField = runOnConditionWithContext(resetSearchField);
-const handleSearchFieldKeyPress = compose(runResetSearchField, isEscKey);
-searchElt.addEventListener('keypress', handleSearchFieldKeyPress, false);
+const handleLogoClick = addContext(resetSearchField);
+addLogoListener('click', handleLogoClick);
 
-const handleLogoClick = compose(runResetSearchField, isClick);
-headerLogoElt.addEventListener('click', handleLogoClick, false);
+const runResetSearchFieldIf = runOnConditionWithContext(resetSearchField);
+const handleSearchFieldKeyPress = compose(runResetSearchFieldIf, isEscKeyEvent);
+addSearchFieldListener('keypress', handleSearchFieldKeyPress);
 
 // Page initialization
 addContext(resetPage)();

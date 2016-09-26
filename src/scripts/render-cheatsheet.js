@@ -1,6 +1,6 @@
 import compose from 'ramda/src/compose';
 
-import createDOMNode from './utils/create-dom-node';
+import { createDOMNode } from './utils/dom-node-helpers';
 import { wrapTextWithClass } from './utils/text-transformers';
 
 import { CLASSNAMES, TEXTS } from './constants';

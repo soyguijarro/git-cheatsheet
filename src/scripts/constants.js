@@ -3,14 +3,7 @@ export const CHAR_ENTITIES = {
   '>': '&#62;',
 };
 
-export const KEYS = {
-  ESC: 'Escape',
-  LETTER: /^[a-z]$/i,
-};
-
-export const EVENT_TYPES = {
-  CLICK: 'click',
-};
+export const ESC_KEY = 'Escape';
 
 export const CLASSNAMES = {
   SEARCH: 'header-search',
