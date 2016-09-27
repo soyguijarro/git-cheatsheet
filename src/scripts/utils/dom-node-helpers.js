@@ -19,8 +19,17 @@ export const addListenerToDOMNode = node => (event, listener) => {
 
 export const setFocusOnDOMNode = node => node.focus();
 
+const checkDOMNodeTagName = tagName => node => (
+  node.tagName.toUpperCase() === tagName.toUpperCase()
+);
+/* eslint-disable no-param-reassign */
 export const setDOMNodeValue = node => (value) => {
-  /* eslint-disable no-param-reassign */
-  node.value = value;
-  /* eslint-enable no-param-reassign */
+  const isInputNode = checkDOMNodeTagName('input');
+
+  if (isInputNode(node)) {
+    node.value = value;
+  } else {
+    node.innerHTML = value;
+  }
 };
+/* eslint-enable no-param-reassign */

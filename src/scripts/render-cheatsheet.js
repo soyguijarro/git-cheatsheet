@@ -1,6 +1,6 @@
 import compose from 'ramda/src/compose';
 
-import { createDOMNode } from './utils/dom-node-helpers';
+import { createDOMNode, setDOMNodeValue } from './utils/dom-node-helpers';
 import { wrapTextWithClass } from './utils/text-transformers';
 
 import { CLASSNAMES, TEXTS } from './constants';
@@ -49,7 +49,8 @@ const replaceSpacesWithHyphens = string => string.replace(/ /g, '-');
 const getResultSectionEltId = compose(convertToLowerCase, replaceSpacesWithHyphens);
 export default encodeText => (items, searchString) => {
   const mainElt = document.querySelector(`.${CLASSNAMES.MAIN}`);
-  mainElt.innerHTML = '';
+  const setMainEltValue = setDOMNodeValue(mainElt);
+  setMainEltValue('');
 
   if (!items || !items.length) {
     mainElt.appendChild(getNoResultsElt());
