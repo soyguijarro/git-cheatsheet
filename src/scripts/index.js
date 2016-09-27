@@ -1,7 +1,7 @@
 import compose from 'ramda/src/compose';
 
 import { runOnCondition, addParams } from './utils/function-transformers';
-import { checkKeyName } from './utils/key-events-helpers';
+import checkKeyName from './utils/check-key-name';
 import { addListenerToDOMNode } from './utils/dom-node-helpers';
 
 import { updateCheatsheet, resetSearchField, resetPage } from './event-handlers';
