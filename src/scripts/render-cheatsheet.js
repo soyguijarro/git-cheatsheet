@@ -14,38 +14,39 @@ const getNoResultsElt = () => createSectionElt({
   innerHTML: TEXTS.NO_RESULTS,
 });
 
+const getResultSectionEltInnerHTML = (id, text) => (`
+  <h2 class=${CLASSNAMES.SECTION_TITLE}>
+    <a href="#${id}">${text}</a>
+  </h2>
+`);
 const getResultSectionElt = (id, text) => createSectionElt({
   id,
   className: CLASSNAMES.SECTION,
-  innerHTML:
-    `<h2 class=${CLASSNAMES.SECTION_TITLE}>
-      <a href="#${id}">
-        ${text}
-      </a>
-    </h2>`,
+  innerHTML: getResultSectionEltInnerHTML(id, text),
 });
 
+const getResultItemEltClassName = isEndOfSubsection => (
+  `${CLASSNAMES.ITEM} ${isEndOfSubsection ? CLASSNAMES.ITEM_SPACE : ''}`
+);
+const getResultItemEltInnerHTML = textFormatter => (name, content) => (`
+  <span class=${CLASSNAMES.ITEM_TITLE}>${textFormatter(name)}</span>
+  <pre class=${CLASSNAMES.ITEM_CONTENT}>${textFormatter(content)}</pre>
+`);
 const getResultItemElt = (searchString, encodeText) => ({ name, content, isEndOfSubsection }) => {
   const highlightText = wrapTextWithClass(CLASSNAMES.HIGHLIGHT);
   const highlightSearchString = compose(highlightText, encodeText)(searchString);
-  const formatText = compose(highlightSearchString, encodeText);
+  const getResultItemEltFormattedInnerHTML =
+    getResultItemEltInnerHTML(compose(highlightSearchString, encodeText));
 
   return createDivElt({
-    className: `${CLASSNAMES.ITEM} ${isEndOfSubsection ? CLASSNAMES.ITEM_SPACE : ''}`,
-    innerHTML:
-      `<span class=${CLASSNAMES.ITEM_TITLE}>
-        ${formatText(name)}
-      </span>
-      <pre class=${CLASSNAMES.ITEM_CONTENT}>
-        ${formatText(content)}
-      </pre>`,
+    className: getResultItemEltClassName(isEndOfSubsection),
+    innerHTML: getResultItemEltFormattedInnerHTML(name, content),
   });
 };
 
 const convertToLowerCase = string => string.toLowerCase();
 const replaceSpacesWithHyphens = string => string.replace(/ /g, '-');
 const getResultSectionEltId = compose(convertToLowerCase, replaceSpacesWithHyphens);
-
 export default encodeText => (items, searchString) => {
   const mainElt = document.querySelector(`.${CLASSNAMES.MAIN}`);
   mainElt.innerHTML = '';
