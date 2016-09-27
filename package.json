@@ -55,8 +55,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run lint",
-      "post-merge": "npm install"
+      "pre-commit": "npm run lint"
     }
   },
   "repository": {

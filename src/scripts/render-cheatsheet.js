@@ -27,7 +27,7 @@ const getResultSectionElt = (id, text) => createSectionElt({
 
 const getResultItemElt = (searchString, encodeText) => ({ name, content, isEndOfSubsection }) => {
   const highlightText = wrapTextWithClass(CLASSNAMES.HIGHLIGHT);
-  const highlightSearchString = highlightText(encodeText(searchString));
+  const highlightSearchString = compose(highlightText, encodeText)(searchString);
   const formatText = compose(highlightSearchString, encodeText);
 
   return createDivElt({
