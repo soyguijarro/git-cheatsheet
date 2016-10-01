@@ -8,21 +8,21 @@ import { CHAR_ENTITIES } from './constants';
 
 const encodeCharEntities = encodeText(CHAR_ENTITIES);
 const renderCheatsheetWithEncoding = renderCheatsheet(encodeCharEntities);
-export const updateCheatsheet = (data, elt) => {
-  const searchString = escapeRegExpSpecialChars(elt.value);
+export const updateCheatsheet = (data, searchFieldElt) => {
+  const searchString = escapeRegExpSpecialChars(searchFieldElt.value);
   const filteredData = filterData(data, searchString);
 
-  return renderCheatsheetWithEncoding(filteredData, searchString);
+  renderCheatsheetWithEncoding(filteredData, searchString);
 };
 
-export const resetPage = (data, elt) => {
-  setFocusOnDOMNode(elt);
-  updateCheatsheet(data, elt);
+export const resetPage = (data, searchFieldElt) => {
+  setFocusOnDOMNode(searchFieldElt);
+  updateCheatsheet(data, searchFieldElt);
 };
 
-export const resetSearchField = (data, elt) => {
-  const setSearchEltValue = setDOMNodeValue(elt);
-  setSearchEltValue('');
+export const resetSearchField = (data, searchFieldElt) => {
+  const setSearchFieldEltValue = setDOMNodeValue(searchFieldElt);
 
-  resetPage(data, elt);
+  setSearchFieldEltValue('');
+  resetPage(data, searchFieldElt);
 };
