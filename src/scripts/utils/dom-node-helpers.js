@@ -1,5 +1,7 @@
 import compose from 'ramda/src/compose';
 
+import { toUpperCase } from './text-transformers';
+
 const createNewDOMNode = document.createElement.bind(document);
 const addAttributesToDOMNode = attributes => node => (
   Object.keys(attributes).reduce((nodeWithAttrs, attrName) => {
@@ -13,23 +15,19 @@ export const createDOMNode = type => (attributes) => {
   return compose(addAttributes, createNewDOMNode)(type);
 };
 
-export const addListenerToDOMNode = node => (event, listener) => {
-  node.addEventListener(event, listener, false);
-};
-
-export const setFocusOnDOMNode = node => node.focus();
-
 const checkDOMNodeTagName = tagName => node => (
-  node.tagName.toUpperCase() === tagName.toUpperCase()
+  toUpperCase(node.tagName) === toUpperCase(tagName)
 );
+const isInputNode = checkDOMNodeTagName('input');
 /* eslint-disable no-param-reassign */
 export const setDOMNodeValue = node => (value) => {
-  const isInputNode = checkDOMNodeTagName('input');
-
-  if (isInputNode(node)) {
-    node.value = value;
-  } else {
-    node.innerHTML = value;
-  }
+  const property = isInputNode(node) ? 'value' : 'innerHTML';
+  node[property] = value;
 };
 /* eslint-enable no-param-reassign */
+
+export const addListenerToDOMNode = node => node.addEventListener;
+
+export const removeListenerFromDOMNode = node => node.removeEventListener;
+
+export const setFocusOnDOMNode = node => node.focus();
