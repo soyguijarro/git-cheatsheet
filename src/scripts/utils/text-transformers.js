@@ -20,3 +20,5 @@ export const encodeText = dictionary => (string = '') => (
 );
 
 export const escapeRegExpSpecialChars = escapeStringRegexp;
+
+export const toLowerCase = string => string.toLowerCase();

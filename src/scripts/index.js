@@ -1,7 +1,7 @@
 import compose from 'ramda/src/compose';
 
 import { runOnCondition, addParams } from './utils/function-transformers';
-import checkKeyName from './utils/check-key-name';
+import checkKeyNameFromEvent from './utils/check-key-name-from-event';
 import { addListenerToDOMNode } from './utils/dom-node-helpers';
 
 import { updateCheatsheet, resetSearchField, resetPage } from './event-handlers';
@@ -18,7 +18,7 @@ const headerLogoElt = rootElt.querySelector(`.${CLASSNAMES.LOGO}`);
 const searchElt = rootElt.querySelector(`.${CLASSNAMES.SEARCH}`);
 
 // Auxiliary functions
-const isEscKeyEvent = checkKeyName(ESC_KEY);
+const isEscKeyEvent = checkKeyNameFromEvent(ESC_KEY);
 const addContext = addParams(data, searchElt);
 const runOnConditionWithContext = compose(runOnCondition, addContext);
 const addLogoListener = addListenerToDOMNode(headerLogoElt);
