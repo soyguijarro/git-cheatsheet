@@ -1,13 +1,14 @@
 import compose from 'ramda/src/compose';
 
 import { createDOMNode, setDOMNodeValue } from './utils/dom-node-helpers';
-import { wrapTextWithClass } from './utils/text-transformers';
+import { wrapTextWithClass, replaceText, toLowerCase } from './utils/text-transformers';
 
 import { CLASSNAMES, TEXTS } from './constants';
 
 // Auxiliary functions
 const createSectionElt = createDOMNode('section');
 const createDivElt = createDOMNode('div');
+const replaceWithHyphens = replaceText('-');
 
 const getNoResultsElt = () => createSectionElt({
   className: CLASSNAMES.NO_RESULTS,
@@ -44,9 +45,7 @@ const getResultItemElt = (searchString, encodeText) => ({ name, content, isEndOf
   });
 };
 
-const convertToLowerCase = string => string.toLowerCase();
-const replaceSpacesWithHyphens = string => string.replace(/ /g, '-');
-const getResultSectionEltId = compose(convertToLowerCase, replaceSpacesWithHyphens);
+const getResultSectionEltId = compose(toLowerCase, replaceWithHyphens(' '));
 export default encodeText => (items, searchString) => {
   const mainElt = document.querySelector(`.${CLASSNAMES.MAIN}`);
   const setMainEltValue = setDOMNodeValue(mainElt);
