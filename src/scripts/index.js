@@ -2,7 +2,7 @@ import compose from 'ramda/src/compose';
 
 import { runOnCondition, addParams } from './utils/function-transformers';
 import checkKeyNameFromEvent from './utils/check-key-name-from-event';
-import { addListenerToDOMNode, removeListenerFromDOMNode } from './utils/dom-node-helpers';
+import { getDOMNode, addListenerToDOMNode, removeListenerFromDOMNode } from './utils/dom-node-helpers';
 
 import { updateCheatsheet, resetSearchField, resetPage } from './event-handlers';
 
@@ -11,9 +11,8 @@ import data from '../data.json';
 import '../styles/main.scss';
 
 // Page elements
-const rootElt = document;
-const logoElt = rootElt.querySelector(`.${CLASSNAMES.LOGO}`);
-const searchFieldElt = rootElt.querySelector(`.${CLASSNAMES.SEARCH}`);
+const logoElt = getDOMNode(`.${CLASSNAMES.LOGO}`);
+const searchFieldElt = getDOMNode(`.${CLASSNAMES.SEARCH}`);
 
 // Auxiliary functions
 const isEscKeyEvent = checkKeyNameFromEvent(ESC_KEY);

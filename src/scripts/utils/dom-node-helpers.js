@@ -2,6 +2,8 @@ import compose from 'ramda/src/compose';
 
 import { toUpperCase } from './text-transformers';
 
+export const getDOMNode = (query, root = document) => root.querySelector(query);
+
 const createNewDOMNode = document.createElement.bind(document);
 const addAttributesToDOMNode = attributes => node => (
   Object.keys(attributes).reduce((nodeWithAttrs, attrName) => {
@@ -26,10 +28,10 @@ export const setDOMNodeValue = node => (value) => {
 };
 /* eslint-enable no-param-reassign */
 
-export const addListenerToDOMNode = node => node.addEventListener;
-
-export const removeListenerFromDOMNode = node => node.removeEventListener;
+export const appendChildToDOMNode = node => child => node.appendChild(child);
 
 export const setFocusOnDOMNode = node => node.focus();
 
-export const appendChildToDOMNode = node => child => node.appendChild(child);
+export const addListenerToDOMNode = node => node.addEventListener;
+
+export const removeListenerFromDOMNode = node => node.removeEventListener;

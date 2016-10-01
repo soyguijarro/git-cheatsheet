@@ -1,6 +1,6 @@
 import compose from 'ramda/src/compose';
 
-import { createDOMNode, setDOMNodeValue, appendChildToDOMNode } from './utils/dom-node-helpers';
+import { getDOMNode, createDOMNode, setDOMNodeValue, appendChildToDOMNode } from './utils/dom-node-helpers';
 import { wrapTextWithClass, replaceText, toLowerCase } from './utils/text-transformers';
 
 import { CLASSNAMES, TEXTS } from './constants';
@@ -47,7 +47,7 @@ const getResultItemElt = (searchString, encodeText) => ({ name, content, isEndOf
 
 const getResultSectionEltId = compose(toLowerCase, replaceWithHyphens(' '));
 export default encodeText => (items, searchString) => {
-  const mainElt = document.querySelector(`.${CLASSNAMES.MAIN}`);
+  const mainElt = getDOMNode(`.${CLASSNAMES.MAIN}`);
   const setMainEltValue = setDOMNodeValue(mainElt);
   const appendChildToMainElt = appendChildToDOMNode(mainElt);
 
@@ -61,7 +61,7 @@ export default encodeText => (items, searchString) => {
   const getFormattedResultItemElt = getResultItemElt(searchString, encodeText);
   items.forEach((item) => {
     const sectionId = getResultSectionEltId(item.section);
-    let sectionElt = document.querySelector(`#${sectionId}`);
+    let sectionElt = getDOMNode(`#${sectionId}`);
 
     if (!sectionElt) {
       sectionElt = getResultSectionElt(sectionId, item.section);
