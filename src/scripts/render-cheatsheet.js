@@ -1,6 +1,6 @@
 import compose from 'ramda/src/compose';
 
-import { createDOMNode, setDOMNodeValue } from './utils/dom-node-helpers';
+import { createDOMNode, setDOMNodeValue, appendChildToDOMNode } from './utils/dom-node-helpers';
 import { wrapTextWithClass, replaceText, toLowerCase } from './utils/text-transformers';
 
 import { CLASSNAMES, TEXTS } from './constants';
@@ -49,10 +49,12 @@ const getResultSectionEltId = compose(toLowerCase, replaceWithHyphens(' '));
 export default encodeText => (items, searchString) => {
   const mainElt = document.querySelector(`.${CLASSNAMES.MAIN}`);
   const setMainEltValue = setDOMNodeValue(mainElt);
+  const appendChildToMainElt = appendChildToDOMNode(mainElt);
+
   setMainEltValue('');
 
   if (!items || !items.length) {
-    mainElt.appendChild(getNoResultsElt());
+    appendChildToMainElt(getNoResultsElt());
     return;
   }
 
@@ -63,9 +65,10 @@ export default encodeText => (items, searchString) => {
 
     if (!sectionElt) {
       sectionElt = getResultSectionElt(sectionId, item.section);
-      mainElt.appendChild(sectionElt);
+      appendChildToMainElt(sectionElt);
     }
 
-    sectionElt.appendChild(getFormattedResultItemElt(item));
+    const appendChildToSectionElt = appendChildToDOMNode(sectionElt);
+    appendChildToSectionElt(getFormattedResultItemElt(item));
   });
 };
