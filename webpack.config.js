@@ -102,6 +102,9 @@ module.exports = env => ({
   module: {
     loaders: getLoaders(env),
   },
+  eslint: {
+    emitWarning: true,
+  },
   postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
   resolve: {
     extensions: ['', '.js'],
