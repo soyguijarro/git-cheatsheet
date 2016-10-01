@@ -1,4 +1,5 @@
 import escapeStringRegexp from 'escape-string-regexp';
+import reduce from 'ramda/src/reduce';
 
 export const replaceText = replacement => text => (target) => {
   const textRegExp = new RegExp(text, 'ig');
@@ -13,11 +14,10 @@ export const wrapTextWithClass = className => text => (targetString) => {
   return wrapWithClass(text)(targetString);
 };
 
-export const encodeText = dictionary => (string = '') => (
-  Object.keys(dictionary).reduce((encodedString, char) => (
-    replaceText(dictionary[char])(char)(encodedString)
-  ), string)
-);
+export const encodeText = dictionary => (string = '') => {
+  const encodeChar = (encodedString, char) => replaceText(dictionary[char])(char)(encodedString);
+  return reduce(encodeChar, string, Object.keys(dictionary));
+};
 
 export const escapeRegExpSpecialChars = escapeStringRegexp;
 

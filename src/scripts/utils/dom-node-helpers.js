@@ -1,17 +1,21 @@
 import compose from 'ramda/src/compose';
+import reduce from 'ramda/src/reduce';
 
 import { toUpperCase } from './text-transformers';
 
 export const getDOMNode = (query, root = document) => root.querySelector(query);
 
 const createNewDOMNode = document.createElement.bind(document);
-const addAttributesToDOMNode = attributes => node => (
-  Object.keys(attributes).reduce((nodeWithAttrs, attrName) => {
-    const currentNode = nodeWithAttrs;
-    currentNode[attrName] = attributes[attrName];
-    return nodeWithAttrs;
-  }, node)
-);
+const addAttributesToDOMNode = attributes => (node) => {
+  /* eslint-disable no-param-reassign */
+  const addAttribute = (modifiedNode, attribute) => {
+    modifiedNode[attribute] = attributes[attribute];
+    return modifiedNode;
+  };
+  /* eslint-enable no-param-reassign */
+
+  return reduce(addAttribute, node, Object.keys(attributes));
+};
 export const createDOMNode = type => (attributes) => {
   const addAttributes = addAttributesToDOMNode(attributes);
   return compose(addAttributes, createNewDOMNode)(type);
