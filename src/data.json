@@ -138,7 +138,7 @@
     "isEndOfSubsection": false
   },
   {
-    "name": "Show commit [and branch] history",
+    "name": "Show commit [and branch] history [abbreviated]",
     "content": "git log [--graph] [--oneline]",
     "section": "Commits",
     "isEndOfSubsection": false
@@ -146,6 +146,12 @@
   {
     "name": "Show commit details",
     "content": "git show <hash>",
+    "section": "Commits",
+    "isEndOfSubsection": false
+  },
+  {
+    "name": "Show commit differences",
+    "content": "git diff <some hash> <other hash>",
     "section": "Commits",
     "isEndOfSubsection": false
   },
@@ -170,6 +176,12 @@
   {
     "name": "Go to commit [and discard changes]",
     "content": "git reset [--hard] <hash>",
+    "section": "Commits",
+    "isEndOfSubsection": false
+  },
+  {
+    "name": "Apply commit to branch",
+    "content": "git cherry-pick <hash> <branch>",
     "section": "Commits",
     "isEndOfSubsection": false
   },
@@ -216,8 +228,14 @@
     "isEndOfSubsection": false
   },
   {
-    "name": "Switch to branch",
-    "content": "git checkout <branch>",
+    "name": "[Create and] switch to branch",
+    "content": "git checkout [-b] <branch>",
+    "section": "Branches",
+    "isEndOfSubsection": false
+  },
+  {
+    "name": "Switch to previous branch",
+    "content": "git checkout -",
     "section": "Branches",
     "isEndOfSubsection": false
   },
