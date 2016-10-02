@@ -33,8 +33,8 @@ const handleSearchFieldInput = addContext(updateCheatsheet);
 addSearchFieldListener('input', handleSearchFieldInput);
 
 const runResetSearchFieldIf = runOnConditionWithContext(resetSearchField);
-const handleSearchFieldKeyPress = compose(runResetSearchFieldIf, isEscKeyEvent);
-addSearchFieldListener('keypress', handleSearchFieldKeyPress);
+const handleSearchFieldKeyUp = compose(runResetSearchFieldIf, isEscKeyEvent);
+addSearchFieldListener('keyup', handleSearchFieldKeyUp);
 
 // Page initialization
 addContext(resetPage)();
@@ -46,6 +46,6 @@ if (module.hot) {
   module.hot.dispose(() => {
     removeLogoListener('click', handleLogoClick);
     removeSearchFieldListener('input', handleSearchFieldInput);
-    removeSearchFieldListener('keypress', handleSearchFieldKeyPress);
+    removeSearchFieldListener('keyup', handleSearchFieldKeyUp);
   });
 }
