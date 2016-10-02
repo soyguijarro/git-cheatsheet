@@ -27,14 +27,14 @@ const removeSearchFieldListener = removeListenerFromDOMNode(searchFieldElt);
 
 // Event listeners
 const handleLogoClick = addContext(resetSearchField);
-addLogoListener('click', handleLogoClick, false);
+addLogoListener('click', handleLogoClick);
 
 const handleSearchFieldInput = addContext(updateCheatsheet);
-addSearchFieldListener('input', handleSearchFieldInput, false);
+addSearchFieldListener('input', handleSearchFieldInput);
 
 const runResetSearchFieldIf = runOnConditionWithContext(resetSearchField);
 const handleSearchFieldKeyPress = compose(runResetSearchFieldIf, isEscKeyEvent);
-addSearchFieldListener('keypress', handleSearchFieldKeyPress, false);
+addSearchFieldListener('keypress', handleSearchFieldKeyPress);
 
 // Page initialization
 addContext(resetPage)();
@@ -44,8 +44,10 @@ if (module.hot) {
   module.hot.accept();
 
   module.hot.dispose(() => {
-    removeLogoListener('click', handleLogoClick, false);
-    removeSearchFieldListener('input', handleSearchFieldInput, false);
-    removeSearchFieldListener('keypress', handleSearchFieldKeyPress, false);
+    removeLogoListener('click', handleLogoClick);
+    removeSearchFieldListener('input', handleSearchFieldInput);
+    removeSearchFieldListener('keypress', handleSearchFieldKeyPress);
   });
 }
+
+console.log('a');

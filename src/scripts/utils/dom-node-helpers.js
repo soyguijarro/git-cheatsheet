@@ -36,6 +36,10 @@ export const appendChildToDOMNode = node => child => node.appendChild(child);
 
 export const setFocusOnDOMNode = node => node.focus();
 
-export const addListenerToDOMNode = node => node.addEventListener;
+export const addListenerToDOMNode = node => (event, handler) => (
+  node.addEventListener(event, handler, false)
+);
 
-export const removeListenerFromDOMNode = node => node.removeEventListener;
+export const removeListenerFromDOMNode = node => (event, handler) => (
+  node.removeEventListener(event, handler, false)
+);
