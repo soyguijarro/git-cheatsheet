@@ -49,5 +49,3 @@ if (module.hot) {
     removeSearchFieldListener('keypress', handleSearchFieldKeyPress);
   });
 }
-
-console.log('a');
