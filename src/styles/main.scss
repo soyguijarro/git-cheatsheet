@@ -43,7 +43,7 @@ a {
     justify-content: space-between;
   }
 
-  &-logo {
+  &__logo {
     margin-bottom: 0.75em;
     cursor: pointer;
     display: flex;
@@ -53,12 +53,12 @@ a {
       margin-bottom: 0;
     }
 
-    &-image {
+    &__image {
       width: 6.875em;
       margin-right: 0.5em;
     }
 
-    &-text {
+    &__text {
       font: {
         family: $heading-font;
         size: 1.5em;
@@ -69,7 +69,7 @@ a {
     }
   }
 
-  &-search {
+  &__search {
     font: {
       family: $heading-font;
       size: 0.9em;
@@ -110,10 +110,10 @@ a {
     min-height: calc(100vh - 9.5em);
   }
 
-  &-section {
+  &__section {
     margin: 2em 0;
 
-    &-title {
+    &__title {
       font: {
         family: $heading-font;
         size: 1.2em;
@@ -123,8 +123,8 @@ a {
       margin: 0 0 0.5em;
     }
 
-    &-item {
-      &-title {
+    &__item {
+      &__title {
         font: {
           size: 0.8em;
           weight: 400;
@@ -134,7 +134,7 @@ a {
         text-transform: uppercase;
       }
 
-      &-content {
+      &__content {
         font-family: $monospaced-font;
         white-space: normal;
         margin: 0 0 1.25em;
@@ -142,16 +142,16 @@ a {
       }
     }
 
-    &-no-results {
+    &--no-results {
       text-align: center;
       margin: 2.5em 0;
     }
 
-    &-extra-space {
+    &--extra-space {
       margin-bottom: 2em;
     }
 
-    &-highlight {
+    &--highlight {
       background-color: $highlight-color;
     }
   }

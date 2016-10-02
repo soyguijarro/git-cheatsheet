@@ -6,17 +6,17 @@ export const CHAR_ENTITIES = {
 export const ESC_KEY = 'Escape';
 
 export const CLASSNAMES = {
-  SEARCH: 'header-search',
-  LOGO: 'header-logo',
+  SEARCH: 'header__search',
+  LOGO: 'header__logo',
   MAIN: 'main',
-  SECTION: 'main-section',
-  NO_RESULTS: 'main-section-no-results',
-  SECTION_TITLE: 'main-section-title',
-  ITEM: 'main-section-item',
-  ITEM_SPACE: 'main-section-extra-space',
-  ITEM_TITLE: 'main-section-item-title',
-  ITEM_CONTENT: 'main-section-item-content',
-  HIGHLIGHT: 'main-section-highlight',
+  SECTION: 'main__section',
+  NO_RESULTS: 'main__section--no-results',
+  SECTION_TITLE: 'main__section__title',
+  ITEM: 'main__section__item',
+  ITEM_TITLE: 'main__section__item__title',
+  ITEM_CONTENT: 'main__section__item__content',
+  ITEM_SPACE: 'main__section--extra-space',
+  HIGHLIGHT: 'main__section--highlight',
 };
 
 export const TEXTS = {
