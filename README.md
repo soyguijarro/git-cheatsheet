@@ -20,6 +20,6 @@ The project underwent a major refactor seeking a functional style after I read t
 The design of the site is heavily inspired by (borrowed from) the [official Git website](https://git-scm.com/). The animated screenshot at the top of this document was made possible thanks to the [am-i-responsive](http://ami.responsivedesign.is/) tool. Also, [these instructions](https://gist.github.com/domenic/ec8b0fc8ab45f39403dd) were very helpful to figure out deployment to GitHub Pages with a build step.
 
 
-## Issues and suggestions
+## License and issues
 
-If you find any errors or have suggestions for this project, please [open an issue](https://github.com/soyguijarro/git-cheatsheet/issues) and I'll do my best to help.
+The source code of the site is released under the MIT License. The full text of the license is available in the [LICENSE file](LICENSE). If you find any errors or have suggestions for this project, please [open an issue](https://github.com/soyguijarro/git-cheatsheet/issues) and I'll do my best to help.
