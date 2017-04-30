@@ -10,7 +10,7 @@ A filterable cheatsheet for the [Git](https://git-scm.com/) version control syst
 The site uses vanilla JavaScript (ECMAScript 2015 or ES6) and a few functions from [Ramda](ramdajs.com). Styles are written in [Sass](http://sass-lang.com/) and automatically prefixed with [Autoprefixer](https://github.com/postcss/autoprefixer). [Babel](http://babeljs.io/) is used for transpiling and [Webpack](https://webpack.github.io/) for module bundling. JavaScript code is linted with [ESLint](http://eslint.org/) and [Airbnb's base config](https://www.npmjs.com/package/eslint-config-airbnb-base), and styles with [Stylelint](http://stylelint.io/) and its [standard config](https://github.com/stylelint/stylelint-config-standard). The site is hosted in [GitHub Pages](https://pages.github.com/) and deployed with a simple npm script.
 
 
-## Philosophy
+## Motivation
 
 The project underwent a major refactor seeking a functional style after I read the first few chapters from the excellent [Professor Frisby's Mostly Adequate Guide to Functional Programming](https://github.com/MostlyAdequate/mostly-adequate-guide). However what you'll find here is by no means a strict functional approach. The refactor mostly consisted on extracting and decoupling functions, and taking advantage of function composition and currying. Nonetheless it served me to play around with these concepts.
 
