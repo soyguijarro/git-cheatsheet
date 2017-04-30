@@ -138,6 +138,12 @@
     "isEndOfSubsection": false
   },
   {
+    "name": "Show differences of stashed changes",
+    "content": "git stash show",
+    "section": "Changes",
+    "isEndOfSubsection": false
+  },
+  {
     "name": "Show commit [and branch] history [abbreviated]",
     "content": "git log [--graph] [--oneline]",
     "section": "Commits",
