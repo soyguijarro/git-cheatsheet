@@ -10,6 +10,7 @@
     "lint": "eslint src && stylelint src/**/*.scss",
     "prestart": "if [ ! -d node_modules ] ; then npm install; fi",
     "prebuild": "npm install && rm -r -f dist",
+    "postbuild": "cp src/manifest.json dist",
     "predeploy": "npm run build && cd dist && echo 'gitcheatsheet.soyguijarro.com' > CNAME",
     "postversion": "git push --follow-tags origin master && npm run deploy"
   },

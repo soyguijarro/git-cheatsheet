@@ -1,0 +1,15 @@
+{
+  "short_name": "Git Cheatsheet",
+  "name": "Git Cheatsheet",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f14e32",
+  "theme_color": "#f14e32"
+}
