@@ -2,7 +2,7 @@
 
 [![Screenshot](screenshot.gif)](http://gitcheatsheet.soyguijarro.com/)
 
-A filterable cheatsheet for the [Git](https://git-scm.com/) version control system. Open [the website](http://gitcheatsheet.soyguijarro.com/) and start typing to make a search. Press the Esc key to reset the search field. Commands are auto selected when you click on them for easier copying.
+A filterable cheat sheet for the [Git](https://git-scm.com/) version control system. Open [the website](http://gitcheatsheet.soyguijarro.com/) and start typing to make a search. Press the Esc key to reset the search field. Commands are auto selected when you click on them for easier copying.
 
 
 ## Technology
@@ -12,12 +12,16 @@ The site uses vanilla JavaScript (ECMAScript 2015 or ES6) and a few functions fr
 
 ## Motivation
 
-The project underwent a major refactor seeking a functional style after I read the first few chapters from the excellent [Professor Frisby's Mostly Adequate Guide to Functional Programming](https://github.com/MostlyAdequate/mostly-adequate-guide). However what you'll find here is by no means a strict functional approach. The refactor mostly consisted on extracting and decoupling functions, and taking advantage of function composition and currying. Nonetheless it served me to play around with these concepts.
+For a long time I had a personal cheat sheet of git commands in a text file that I'd regularly check, because I'm usually terrible at remembering this kind of stuff. As the cheat sheet kept growing, quickly finding the command I was looking for became more cumbersome, so at some point I thought it'd be useful to have search-as-you-type in the cheat sheet and this website was born.
+
+Later on, the project underwent a major refactor seeking a functional style after I read the first few chapters from the excellent [Professor Frisby's Mostly Adequate Guide to Functional Programming](https://github.com/MostlyAdequate/mostly-adequate-guide). However what you'll find here is by no means a strict functional approach. The refactor mostly consisted on extracting and decoupling functions, and taking advantage of function composition and currying. Nonetheless it served me to play around with these concepts.
 
 
 ## Acknowledgments
 
 The design of the site is heavily inspired by (borrowed from) the [official Git website](https://git-scm.com/). The animated screenshot at the top of this document was made possible thanks to the [am-i-responsive](http://ami.responsivedesign.is/) tool. Also, [these instructions](https://gist.github.com/domenic/ec8b0fc8ab45f39403dd) were very helpful to figure out deployment to GitHub Pages with a build step.
+
+Special thanks to all who pointed out mistakes in the cheat sheet or suggested commands to add to it. They're individually credited in the relevant commit messages, so go check those if you're curious.
 
 
 ## License and issues
