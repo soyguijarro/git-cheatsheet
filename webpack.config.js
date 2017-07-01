@@ -1,112 +1,175 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
-/* eslint-enable import/no-extraneous-dependencies */
 
-const getPlugins = (env) => {
-  const GLOBALS = {
-    'process.env.NODE_ENV': JSON.stringify(env),
-    __DEV__: env === 'development',
-  };
+// Helpers
+const isProd = env => env === 'production';
+const isDev = env => env === 'development';
+const getIfDev = env => x => (isDev(env) ? x : undefined);
+const getIfProd = env => x => (isProd(env) ? x : undefined);
+const removeUndefined = array => array.filter(x => x !== undefined);
 
-  const plugins = [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin(GLOBALS),
-    new HtmlWebpackPlugin({ template: 'index.html', favicon: 'favicon.png' }),
-    new ExtractTextPlugin('styles.css'),
-  ];
-
-  if (env === 'development') {
-    plugins.push(
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
-      new StyleLintPlugin({ syntax: 'scss' }),
-      new WebpackNotifierPlugin({ excludeWarnings: true })
-    );
-  } else {
-    plugins.push(
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({ minimize: true, sourceMap: false })
-    );
-  }
-
-  return plugins;
+// Config constants
+const SOURCE_DIR = 'src';
+const OUTPUT_DIR = 'dist';
+const SOURCE_HTML_FILE = 'index.html';
+const SOURCE_SCRIPT_PATH = './scripts';
+const SOURCE_FAVICON_FILE = 'favicon.png';
+const OUTPUT_STYLE_FILE = 'styles.css';
+const OUTPUT_SCRIPT_FILE = 'scripts.js';
+const RULES_TEST = {
+  JS: /\.js$/,
+  HTML: /\.html$/,
+  CSS: /\.css$/,
+  SCSS: /\.scss$/,
+  IMAGE: /\.(jpe?g|png|gif|svg)$/,
+  FONT: /\.(eot(\?v=\d+\.\d+\.\d+)?|ttf(\?v=\d+\.\d+\.\d+)?|svg(\?v=\d+\.\d+\.\d+)?|woff(2)*)$/,
 };
+const DEV_SOURCE_MAP = 'eval-source-map';
+const PROD_SOURCE_MAP = false;
 
-const getLoaders = (env) => {
-  const cssLoadersObj = env === 'development' ?
-    { test: /\.css$/, loaders: ['style', 'css?sourceMap', 'postcss'] } :
-    { test: /\.css$/, loader: ExtractTextPlugin.extract(['css', 'postcss']) };
+const getEntry = env => removeUndefined([
+  SOURCE_SCRIPT_PATH,
+  getIfDev(env)('webpack-hot-middleware/client?reload=true'),
+]);
 
-  const scssLoadersObj = env === 'development' ?
-    { test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass?sourceMap'] } :
-    { test: /\.scss$/, loader: ExtractTextPlugin.extract(['css', 'postcss', 'sass']) };
+const getBabelLoader = env => ({
+  loader: 'babel-loader',
+  options: {
+    comments: isDev(env),
+    compact: isDev(env),
+    minified: isDev(env),
+  },
+});
+const getEslintLoader = env => ({
+  loader: 'eslint-loader',
+  options: {
+    fix: true,
+    emitError: isProd(env),
+    emitWarning: isDev(env),
+  },
+});
+const getHtmlLoader = () => ({
+  loader: 'html-loader',
+});
+const getStyleLoader = env => ({
+  loader: 'style-loader',
+  options: {
+    sourceMap: isDev(env),
+  },
+});
+const getCssLoader = env => ({
+  loader: 'css-loader',
+  options: {
+    minimize: isProd(env),
+    sourceMap: isDev(env),
+  },
+});
+const getSassLoader = env => ({
+  loader: 'sass-loader',
+  options: {
+    sourceMap: isDev(env),
+  },
+});
+const getPostcssLoader = env => ({
+  loader: 'postcss-loader',
+  options: {
+    plugins: () => [
+      autoprefixer({
+        browsers: ['last 2 versions'],
+      }),
+    ],
+    sourceMap: isDev(env),
+  },
+});
+const getUrlLoader = () => ({
+  loader: 'url-loader',
+  options: {
+    limit: 10000,
+  },
+});
+const getImageWebpackLoader = () => ({
+  loader: 'image-webpack-loader',
+  options: {
+    progressive: true,
+    optipng: { optimizationLevel: 7 },
+    pngquant: { quality: '65-90' },
+  },
+});
+const getRules = (env) => {
+  const ifProd = getIfProd(env);
+  const ifDev = getIfDev(env);
 
-  const imageLoaders = ['url?limit=10000'];
-  if (env === 'production') {
-    imageLoaders.push(
-      'image-webpack?{ optimizationLevel: 7, progressive: true, pngquant: { quality: "65-90" } }'
-    );
-  }
+  const commonStyleLoaders = removeUndefined([
+    ifDev(getStyleLoader(env)),
+    getCssLoader(env),
+    getPostcssLoader(env),
+  ]);
+  const cssLoaders = commonStyleLoaders;
+  const scssLoaders = [...commonStyleLoaders, getSassLoader(env)];
 
   return [
     {
-      test: /\.js$/,
-      loaders: ['babel?compact=true&comments=false', 'eslint'],
+      test: RULES_TEST.JS,
+      use: [
+        getBabelLoader(env),
+        getEslintLoader(env),
+      ],
     },
     {
-      test: /\.json$/,
-      loader: 'json',
-    },
-    cssLoadersObj,
-    scssLoadersObj,
-    {
-      test: /\.html$/,
-      loader: 'html',
+      test: RULES_TEST.HTML,
+      use: getHtmlLoader(),
     },
     {
-      test: /\.(jpe?g|png|gif|svg)$/,
-      loaders: imageLoaders,
+      test: RULES_TEST.CSS,
+      use: isProd(env) ? ExtractTextPlugin.extract({ use: cssLoaders }) : cssLoaders,
     },
     {
-      test: /\.(eot(\?v=\d+\.\d+\.\d+)?|ttf(\?v=\d+\.\d+\.\d+)?|svg(\?v=\d+\.\d+\.\d+)?|woff(2)*)$/,
-      loader: 'url?limit=10000',
+      test: RULES_TEST.SCSS,
+      use: isProd(env) ? ExtractTextPlugin.extract({ use: scssLoaders }) : scssLoaders,
+    },
+    {
+      test: RULES_TEST.IMAGE,
+      use: removeUndefined([
+        getUrlLoader(),
+        ifProd(getImageWebpackLoader()),
+      ]),
+    },
+    {
+      test: RULES_TEST.FONT,
+      use: getUrlLoader(),
     },
   ];
 };
 
-const getEntry = (env) => {
-  const entry = ['./scripts/index'];
-  if (env === 'development') entry.push('webpack-hot-middleware/client?reload=true');
+const getPlugins = (env) => {
+  const ifProd = getIfProd(env);
+  const ifDev = getIfDev(env);
 
-  return entry;
+  return removeUndefined([
+    new HtmlWebpackPlugin({ template: SOURCE_HTML_FILE, favicon: SOURCE_FAVICON_FILE }),
+    new ExtractTextPlugin({ filename: OUTPUT_STYLE_FILE }),
+    ifDev(new webpack.HotModuleReplacementPlugin()),
+    ifDev(new webpack.NoEmitOnErrorsPlugin()),
+    ifDev(new StyleLintPlugin({ syntax: 'scss' })),
+    ifProd(new webpack.optimize.UglifyJsPlugin()),
+  ]);
 };
 
 module.exports = env => ({
-  context: path.join(__dirname, './src'),
-  debug: true,
-  devtool: env === 'development' ? 'eval-source-map' : 'eval',
-  noInfo: true,
+  context: path.resolve(__dirname, SOURCE_DIR),
   entry: getEntry(env),
   output: {
-    path: path.join(__dirname, './dist'),
-    publicPath: '',
-    filename: 'scripts.js',
+    path: path.resolve(__dirname, OUTPUT_DIR),
+    filename: OUTPUT_SCRIPT_FILE,
+  },
+  module: {
+    rules: getRules(env),
   },
   plugins: getPlugins(env),
-  module: {
-    loaders: getLoaders(env),
-  },
-  eslint: {
-    emitWarning: true,
-  },
-  postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
-  resolve: {
-    extensions: ['', '.js'],
-  },
+  devtool: isDev(env) ? DEV_SOURCE_MAP : PROD_SOURCE_MAP,
 });
+
