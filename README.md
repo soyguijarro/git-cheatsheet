@@ -7,7 +7,7 @@ A filterable cheat sheet for the [Git](https://git-scm.com/) version control sys
 
 ## Technology
 
-The site uses vanilla JavaScript (ECMAScript 2015 or ES6) and a few functions from [Ramda](ramdajs.com). Styles are written in [Sass](http://sass-lang.com/) and automatically prefixed with [Autoprefixer](https://github.com/postcss/autoprefixer). [Babel](http://babeljs.io/) is used for transpiling and [Webpack](https://webpack.github.io/) for module bundling. JavaScript code is linted with [ESLint](http://eslint.org/) and [Airbnb's base config](https://www.npmjs.com/package/eslint-config-airbnb-base), and styles with [Stylelint](http://stylelint.io/) and its [standard config](https://github.com/stylelint/stylelint-config-standard). The site is hosted in [GitHub Pages](https://pages.github.com/) and deployed with a simple npm script.
+The site uses vanilla JavaScript (ECMAScript 2015 or ES6) and a few functions from [Ramda](ramdajs.com). Styles are written in [Sass](http://sass-lang.com/) and automatically prefixed with [Autoprefixer](https://github.com/postcss/autoprefixer). [Babel](http://babeljs.io/) is used for transpiling and [Webpack](https://webpack.js.org/) for module bundling. JavaScript code is linted with [ESLint](http://eslint.org/) and [Airbnb's base config](https://www.npmjs.com/package/eslint-config-airbnb-base), and styles with [Stylelint](http://stylelint.io/) and its [standard config](https://github.com/stylelint/stylelint-config-standard). The site is hosted in [GitHub Pages](https://pages.github.com/) and deployed with a simple npm script.
 
 
 ## Motivation
