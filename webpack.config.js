@@ -74,11 +74,9 @@ const getSassLoader = env => ({
 const getPostcssLoader = env => ({
   loader: 'postcss-loader',
   options: {
-    plugins: () => [
-      autoprefixer({
-        browsers: ['last 2 versions'],
-      }),
-    ],
+    plugins: () => [autoprefixer({
+      browsers: ['> 1%', 'last 2 versions'],
+    })],
     sourceMap: isDev(env),
   },
 });
