@@ -8,10 +8,10 @@
     "build:serve": "npm run build && serve dist",
     "deploy": "gh-pages -d dist",
     "lint": "eslint src && stylelint src/**/*.scss",
-    "prebuild": "rimraf dist",
-    "predeploy": "npm run build && cd dist && echo 'gitcheatsheet.soyguijarro.com' > CNAME",
-    "postversion": "git push --follow-tags origin master && npm run deploy",
-    "precommit": "npm run lint"
+    "prebuild": "npm install && rimraf dist",
+    "predeploy": "npm run build",
+    "precommit": "npm run lint",
+    "postversion": "git push --follow-tags origin master && npm run deploy"
   },
   "repository": {
     "type": "git",
