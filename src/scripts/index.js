@@ -1,4 +1,5 @@
 import compose from 'ramda/src/compose';
+import { install as installOfflinePluginRuntime } from 'offline-plugin/runtime';
 
 import { runOnCondition, addParams } from './utils/function-transformers';
 import checkKeyNameFromEvent from './utils/check-key-name-from-event';
@@ -37,6 +38,7 @@ const handleSearchFieldKeyUp = compose(runResetSearchFieldIf, isEscKeyEvent);
 addSearchFieldListener('keyup', handleSearchFieldKeyUp);
 
 // Page initialization
+installOfflinePluginRuntime();
 addContext(resetPage)();
 
 // Hot module replacement (for development)

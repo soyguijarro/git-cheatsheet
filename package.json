@@ -29,6 +29,7 @@
   "homepage": "https://github.com/soyguijarro/git-cheatsheet#readme",
   "dependencies": {
     "escape-string-regexp": "1.0.5",
+    "offline-plugin": "4.8.1",
     "ramda": "0.24.1"
   },
   "devDependencies": {

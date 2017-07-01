@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 
@@ -153,6 +154,7 @@ const getPlugins = (env) => {
     ifDev(new webpack.NamedModulesPlugin()),
     ifDev(new webpack.NoEmitOnErrorsPlugin()),
     ifDev(new StyleLintPlugin({ syntax: 'scss' })),
+    new OfflinePlugin(),
   ]);
 };
 
