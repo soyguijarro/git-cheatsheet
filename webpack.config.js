@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 
@@ -30,11 +31,6 @@ const RULES_TEST = {
 };
 const DEV_SOURCE_MAP = 'eval-source-map';
 const PROD_SOURCE_MAP = false;
-
-const getEntry = env => removeUndefined([
-  SOURCE_SCRIPT_PATH,
-  getIfDev(env)('webpack-hot-middleware/client?reload=true'),
-]);
 
 const getBabelLoader = env => ({
   loader: 'babel-loader',
@@ -151,19 +147,21 @@ const getPlugins = (env) => {
 
   return removeUndefined([
     new HtmlWebpackPlugin({ template: SOURCE_HTML_FILE, favicon: SOURCE_FAVICON_FILE }),
-    new ExtractTextPlugin({ filename: OUTPUT_STYLE_FILE }),
+    ifProd(new ExtractTextPlugin({ filename: OUTPUT_STYLE_FILE })),
+    ifProd(new CopyWebpackPlugin([{ from: './manifest.json' }])),
     ifDev(new webpack.HotModuleReplacementPlugin()),
+    ifDev(new webpack.NamedModulesPlugin()),
     ifDev(new webpack.NoEmitOnErrorsPlugin()),
     ifDev(new StyleLintPlugin({ syntax: 'scss' })),
-    ifProd(new webpack.optimize.UglifyJsPlugin()),
   ]);
 };
 
 module.exports = env => ({
   context: path.resolve(__dirname, SOURCE_DIR),
-  entry: getEntry(env),
+  entry: SOURCE_SCRIPT_PATH,
   output: {
     path: path.resolve(__dirname, OUTPUT_DIR),
+    publicPath: '',
     filename: OUTPUT_SCRIPT_FILE,
   },
   module: {
@@ -171,5 +169,11 @@ module.exports = env => ({
   },
   plugins: getPlugins(env),
   devtool: isDev(env) ? DEV_SOURCE_MAP : PROD_SOURCE_MAP,
+  devServer: {
+    host: '0.0.0.0', // Equivalent to localhost but can be accessed externally
+    hot: true,
+    noInfo: true,
+    overlay: true,
+  },
 });
 

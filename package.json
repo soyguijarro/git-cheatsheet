@@ -3,13 +3,12 @@
   "version": "1.2.1",
   "description": "A filterable cheatsheet for the Git version control system",
   "scripts": {
-    "start": "node tools/src-server.js",
-    "build": "node tools/build.js",
-    "build:serve": "npm run build && node tools/dist-server.js",
+    "start": "webpack-dev-server --env=development --progress",
+    "build": "webpack --env=production -p --progress",
+    "build:serve": "npm run build && serve dist",
     "deploy": "gh-pages -d dist",
     "lint": "eslint src && stylelint src/**/*.scss",
-    "prebuild": "npm install && rimraf dist",
-    "postbuild": "cp src/manifest.json dist",
+    "prebuild": "rimraf dist",
     "predeploy": "npm run build && cd dist && echo 'gitcheatsheet.soyguijarro.com' > CNAME",
     "postversion": "git push --follow-tags origin master && npm run deploy",
     "precommit": "npm run lint"
@@ -40,8 +39,7 @@
     "babel-loader": "7.1.1",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-stage-2": "6.24.1",
-    "browser-sync": "2.18.12",
-    "colors": "1.1.2",
+    "copy-webpack-plugin": "4.0.1",
     "css-loader": "0.28.4",
     "eslint": "4.1.1",
     "eslint-config-airbnb-base": "11.2.0",
@@ -59,13 +57,13 @@
     "postcss-loader": "2.0.6",
     "rimraf": "2.6.1",
     "sass-loader": "6.0.6",
+    "serve": "6.0.0",
     "style-loader": "0.18.2",
     "stylelint": "7.12.0",
     "stylelint-config-standard": "16.0.0",
     "stylelint-webpack-plugin": "0.8.0",
     "url-loader": "0.5.9",
     "webpack": "3.0.0",
-    "webpack-dev-middleware": "1.11.0",
-    "webpack-hot-middleware": "2.18.0"
+    "webpack-dev-server": "2.5.0"
   }
 }
